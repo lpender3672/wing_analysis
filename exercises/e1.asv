@@ -14,16 +14,16 @@ Gamma = 3.0;
 
 
 c = -0.4:0.2:1.2;
-contour(xm,ym,PSI,c);
+contour(xm,ym,PSI',c);
 
 axis image;
 
 function [xm, ym, psi] = psi_meshgrid(xarr, yarr, xc, yc, Gamma)
     nx = length(xarr);
     ny = length(yarr);
-    psi = zeros(nx, ny);
-    xm = zeros(nx, ny);
-    ym = zeros(nx, ny);
+    psi = zeros(xlen, ylen);
+    xm = zeros(xlen, ylen);
+    ym = zeros(xlen, ylen);
 
     xmin = xarr(1);
     xmax = xarr(end);
@@ -31,7 +31,7 @@ function [xm, ym, psi] = psi_meshgrid(xarr, yarr, xc, yc, Gamma)
     ymax = yarr(end);
 
     for i=1:nx
-        for j=1:ny
+        for j=1:ylen
             xm(i,j) = xmin + (i-1)*(xmax-xmin)/(nx-1);
             ym(i,j) = ymin + (j-1)*(ymax-ymin)/(ny-1);
             psi(i, j) = psipv(xc, yc, Gamma, xarr(i), yarr(j));
