@@ -1,8 +1,11 @@
 function [infa, infb] = refpaninf_vec(del,X,Y)
-    %REFPANINF Summary of this function goes here
-    %   Detailed explanation goes here
+% Function to return the influence coefficients of a vortex sheet panel.
+%   del: length of the reference panel
+%   X: x coordinates of the meshgrid
+%   Y: y coordinates of the meshgrid
     
     % Replace values under 1e-9 with 1e-9 using boolean indexing
+    % to avoid division by zero
     Y(abs(Y) < 1e-9) = 1e-9; 
 
     Rsq = X.^2 + Y.^2;
