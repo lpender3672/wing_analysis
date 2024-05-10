@@ -11,9 +11,9 @@ del = 1.5;
 % exact influence coefficient from integral formula
 [inf1,inf2] = refpaninf_vec(del,xm,ym);
 
-% first coefficient of influence obtained by setting gamma_1 = 1 and gamma_2 = 0
+% first coefficient of influence estimated by setting gamma_1 = 1 and gamma_2 = 0
 estimated_inf1 = approx_vortex_sheet(1.5,100,1,0,xm,ym);
-% second coefficient of influence obtained by setting gamma_1 = 0 and gamma_2 = 1
+% second coefficient of influence estimated by setting gamma_1 = 0 and gamma_2 = 1
 estimated_inf2 = approx_vortex_sheet(1.5,100,0,1,xm,ym);
 
 %% Plotting

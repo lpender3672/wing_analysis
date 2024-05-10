@@ -1,5 +1,5 @@
 function [psi] = approx_vortex_sheet(del,nv,gam_1,gam_2,xm,ym)
-% Function to return the stream function of a vortex sheet.
+% Function to return the stream function of sheet like vortex array
 %   del: length of the vortex sheet
 %   nv: number of vortices
 %   gam_1: circulation per unit length of the first vortex
