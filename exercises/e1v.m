@@ -2,16 +2,36 @@
 clear
 close all;
 
-x = linspace(-2.5, 2.5, 101);
-y = linspace(-2, 2, 51);
+% Defining x-y values of domain
+x = linspace(-2.5, 2.5, 51);
+y = linspace(-2, 2, 41);
 
+% Setting position and strength of point vortex
 xc = 0.5;
 yc = 0.25;
 Gamma = 3.0;
 
+% Creation of domain meshgrid
 [xm, ym] = meshgrid(x, y);
+
+% Using vectorial function to generate streamfunction over domain
 psi = psipv(xc, yc, Gamma, xm, ym);
 
-c = -0.4:0.2:1.2;
-contour(xm,ym,psi,c);
+%% Creating contour plot
+c = -0.4:0.2:1.2; % Contour levels
+
+set(gcf,'PaperPositionMode','auto')
+
+hold on
+contour(xm,ym,psi,c); 
+plot(xc,yc,'.','color','r','MarkerSize',10) % Point of vortex
+legend('\psi contour','Vortex Position')
+hold off
+
+xlabel('x') 
+ylabel('y')
+title(append('Contour Plot of \psi Due to Point Vortex at ',"(",string(xc),",",string(yc),")"))
 axis image;
+
+% Uncomment to save figure
+% print -deps2c figure_name.eps

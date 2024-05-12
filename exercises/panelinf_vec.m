@@ -11,7 +11,7 @@ function [infa, infb] = panelinf_vec(xa,ya,xb,yb,xm,ym)
     nx = -ty;
     ny = tx;
 
-    % transform the meshgrid to the panel coordinate system
+    % Transform the meshgrid to the panel coordinate system
     rx = xm - xa;
     ry = ym - ya;
     X = rx * tx + ry * ty;

@@ -1,7 +1,11 @@
-function [streamfunc_xy] = psipv(xc,yc,Gamma,x,y)
-%psipv returns streamfunction at a point due point vortex
-%   Returns the value of the streamfunction at a point (x,y) due to a point
-%   vortex strength Gamma placed at (xc,yc)
-streamfunc_xy = (-Gamma/(4*pi))*log((x - xc).^2 + (y - yc).^2);
+function psixy = psipv(xc,yc,Gamma,x,y)
+    %   Returns streamfunction at a point due point vortex
+    %   xc: x-position of point vortex
+    %   yc: y-position of point vortex
+    %   Gamma: Stregnth of point vortex
+    %   x: x-positions for which streamfunction should be found
+    %   y: y-positions for which streamfunction should be found
+    %   psixy: streamfunction at specified positions
+    psixy = (-Gamma/(4*pi))*log((x - xc).^2 + (y - yc).^2);
 end
 

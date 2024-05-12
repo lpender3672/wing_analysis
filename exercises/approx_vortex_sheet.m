@@ -1,4 +1,4 @@
-function [psi] = approx_vortex_sheet(del,nv,gam_1,gam_2,xm,ym)
+function [psi] = approx_vortex_sheet(del,nv,gam_a,gam_b,xm,ym)
 % Function to return the stream function of sheet like vortex array
 %   del: length of the vortex sheet
 %   nv: number of vortices
@@ -8,7 +8,7 @@ function [psi] = approx_vortex_sheet(del,nv,gam_1,gam_2,xm,ym)
 %   ym: y coordinates of the meshgrid
 
     dvortx = del / nv; % distance between vortices
-    gamma_vorticies = dvortx*linspace(gam_1,gam_2, nv);
+    gamma_vorticies = dvortx*linspace(gam_a,gam_b, nv);
 
     % vorticies are placed in the middle of a sheet element
     vortex_positions = linspace(0, del - dvortx, nv) + dvortx / 2;
