@@ -19,7 +19,7 @@ b = build_rhs(xs,ys,alpha);
 
 gam = A\b;
 
-psi = ym;
+psi = ym*cos(alpha) + xm*sin(alpha);
 
 for i=1:np
     
@@ -40,7 +40,15 @@ end
 
 c = -1.75:0.25:1.75;
 
+figure(1)
 hold on
 contour(xm,ym,psi,c);
 plot(xs,ys);
 hold off
+
+figure(2)
+plot(theta,gam)
+axis([0 2*pi -2.5 2.5])
+xlabel('\theta') 
+ylabel('\gamma')
+title('\gamma At Circle Surface')
