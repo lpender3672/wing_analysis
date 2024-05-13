@@ -6,7 +6,7 @@ y = linspace(-2,2,321);
 
 [xm, ym] = meshgrid(x, y);
 
-np = 50; % not numpy but number of panels
+np = 4; % not numpy but number of panels
 R = 1;
 alpha = pi/24;
 
@@ -50,7 +50,7 @@ circulation_error = (total_circulation/analytical_circulation - 1)*100;
 disp(append('Error in Circulation: ', string(circulation_error), '%'))
 
 %% Plotting
-c = -0.75:0.05:0.75;
+c = -1.75:0.06,-0.06.25:1.75;
 
 % Streamline plot 
 figure(1)

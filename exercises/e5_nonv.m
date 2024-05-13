@@ -38,6 +38,9 @@ end
 % Effect of uniform flow on phi
 psi = psi + (ym*cos(alpha) - xm*sin(alpha));
 
+mask = xm.^2 + ym .^2 > R^2;
+psi = psi .* mask;
+
 % Comparison of toal circulation from panel method and analytical method
 total_circulation = trapz(theta,gam);
 disp(append('Total Circulation Panel Method: ', string(total_circulation)))
