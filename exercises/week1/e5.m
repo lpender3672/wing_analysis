@@ -57,7 +57,7 @@ axis image;
 legend('Streamlines', 'Circle')
 xlabel('x') 
 ylabel('y')
-title('Streamlines Around Circle in Uniform Flow')
+title(append('Streamlines Around Circle in Uniform Flow, Incidence: \alpha = ', string(alpha)))
 hold off
 
 print -deps2c exercises/week1/figures/e5_streamlines.eps
@@ -68,6 +68,6 @@ plot(theta,gam)
 axis([0 2*pi -2.5 2.5])
 xlabel('\theta') 
 ylabel('\gamma')
-title('\gamma or v At Circle Surface')
+title(append('\gamma or v At Circle Surface, Incidence: \alpha = ',string(alpha)))
 
 print -deps2c exercises/week1/figures/e5_surface_profile.eps
