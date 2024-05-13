@@ -38,10 +38,10 @@ y_sheet = linspace(ya,yb,10);
 
 %% Plotting
 
-figure;
 c = -0.15:0.05:0.15;
 
-subplot(1,2,1);
+figure(1);
+
 hold on;
 contour(xm,ym,infa_exact,c);
 contour(xm,ym,infb_exact,c, "--");
@@ -53,7 +53,10 @@ xlabel('x')
 ylabel('y')
 title('Contours of \psi From Vortex Sheet Integral Formula')
 
-subplot(1,2,2);
+print -deps2c exercises/week1/figures/e3_coeff_exact.eps
+
+figure(2);
+
 hold on;
 contour(xm,ym,infa_approx,c);
 contour(xm,ym,infb_approx,c, "--");
@@ -65,5 +68,5 @@ xlabel('x')
 ylabel('y')
 title(append('Contours of \psi From ', string(nv), ' Finite Vorticies'))
 
-% Uncomment to save figure
-% print -deps2c figure_name.eps
+
+print -deps2c exercises/week1/figures/e3_coeff_approx.eps

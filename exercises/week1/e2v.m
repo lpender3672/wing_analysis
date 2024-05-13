@@ -2,8 +2,8 @@ clear
 close all;
 
 % Defining x-y values of domain
-x = linspace(-2.5, 2.5, 1001);
-y = linspace(-2, 2, 901);
+x = linspace(-2.5,2.5,401);
+y = linspace(-2,2,321);
 
 % Defining length of vortex sheet
 del = 1.5;
@@ -35,7 +35,8 @@ y_sheet = zeros(length(x_sheet));
 figure;
 c = -0.15:0.05:0.15;
 
-subplot(1,2,1);
+figure(1);
+
 hold on;
 contour(xm,ym,inf1,c);
 contour(xm,ym,inf2,c, "--");
@@ -47,7 +48,10 @@ xlabel('x')
 ylabel('y')
 title('Contours of \psi From Vortex Sheet Integral Formula')
 
-subplot(1,2,2);
+print -deps2c exercises/week1/figures/e2_coeff_exact.eps
+
+figure(2);
+
 hold on;
 contour(xm,ym,estimated_inf1,c);
 contour(xm,ym,estimated_inf2,c, "--");
@@ -59,5 +63,4 @@ xlabel('x')
 ylabel('y')
 title(append('Contours of \psi From ', string(nv), ' Finite Vorticies'))
 
-% Uncomment to save figure
-% print -deps2c figure_name.eps
+print -deps2c exercises/week1/figures/e2_coeff_approx.eps

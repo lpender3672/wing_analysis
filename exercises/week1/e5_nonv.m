@@ -12,7 +12,7 @@ y = linspace(-2,2,321);
 [xm, ym] = meshgrid(x, y);
 
 % Number of panels
-np = 100;
+np = 2;
 
 % Defining np + 1 points around circle
 theta = (0:np)*2*pi/np;
@@ -31,15 +31,16 @@ psi = zeros(size(xm));
 
 % Effect of panels on phi
 for i=1:np
-    [infa,infb] = panelinf_vec(xs(i),ys(i),xs(i+1),ys(i+1),xm,ym);
+    [infa,infb] = panelinfvec(xs(i),ys(i),xs(i+1),ys(i+1),xm,ym);
     psi = psi + gam(i)*infa + gam(i+1)*infb;
 end
 
 % Effect of uniform flow on phi
 psi = psi + (ym*cos(alpha) - xm*sin(alpha));
 
-mask = xm.^2 + ym .^2 > R^2;
-psi = psi .* mask;
+% Mask of inner points
+%mask = xm.^2 + ym .^2 > R^2;
+%psi = psi .* mask;
 
 % Comparison of toal circulation from panel method and analytical method
 total_circulation = trapz(theta,gam);

@@ -33,5 +33,4 @@ ylabel('y')
 title(append('Contour Plot of \psi Due to Point Vortex at ',"(",string(xc),",",string(yc),")"))
 axis image;
 
-% Uncomment to save figure
-% print -deps2c figure_name.eps
+print -deps2c exercises/week1/figures/e1_vortex_streamlines.eps

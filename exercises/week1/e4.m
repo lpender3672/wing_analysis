@@ -2,8 +2,8 @@ clear
 close all;
 
 % Defining x-y values of domain
-x = linspace(-2.5, 2.5, 1001);
-y = linspace(-2, 2, 901);
+x = linspace(-2.5,2.5,401);
+y = linspace(-2,2,321);
 
 % Creation of domain meshgrid
 [xm, ym] = meshgrid(x, y);
@@ -59,5 +59,4 @@ title('Streamlines Around Circle in Uniform Flow')
 
 hold off
 
-% Uncomment to save figure
-% print -deps2c figure_name.eps
+print -deps2c exercises/week1/figures/e4_streamlines.eps

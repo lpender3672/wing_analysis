@@ -23,6 +23,7 @@ ylabel('y')
 title(append('Contour Plot of \psi Due to Point Vortex at ',"(",string(xc),",",string(yc),")"))
 axis image;
 
+
 function [xm, ym, psi] = psi_meshgrid(xarr, yarr, xc, yc, Gamma)
 %   Returns meshgrid and streamfunction of domain due to point vortex
 %   xarr: array of x-positions in domain

@@ -1,8 +1,8 @@
 clear
 close all;
 
-x = linspace(-2.5, 2.5, 101);
-y = linspace(-2, 2, 51);
+x = linspace(-2.5,2.5,401);
+y = linspace(-2,2,321);
 
 del = 1.5;
 
