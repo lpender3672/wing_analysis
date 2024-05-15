@@ -63,8 +63,10 @@ hold on
 contour(xm,ym,psi,c);
 plot(xs,ys,'color','r');
 axis image;
-legend('Streamlines', 'Circle')
+legend('Streamlines', 'Airfoil')
 xlabel('x') 
 ylabel('y')
-title(append('Streamlines Around Circle in Uniform Flow, Incidence: \alpha = ', string(alpha)))
+title(append('Joukowski Airfoil Streamlines, Incidence: \alpha = ', string(alpha)))
 hold off
+
+print -deps2c exercises/week1/figures/joukowski_airfoil.eps
