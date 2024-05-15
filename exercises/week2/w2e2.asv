@@ -1,0 +1,69 @@
+clear
+close all
+
+Re_L_array = [5*10^6 ; 10*10^6 ; 20*10^6];
+due_de_array = [-0.1 ; 0 ; 0.1];
+
+
+% x = x/L setting domain
+x = linspace(0,1,101);
+
+%seperation_points = zeros(length(Re_L_array),length(due_de_array));
+
+seperation_points = repmat('No Speration',M,)
+
+for i=1:length(Re_L_array)
+    for j=1:length(due_de_array)    
+        % Setting flow Reynolds number
+        Re_L = Re_L_array(i);
+     
+        
+        % Setting ue = ue/U based on velocity gradient due_dx
+        due_dx = due_de_array(j);
+        ue = 1 + due_dx*x;
+        
+        
+        % Calculate the integral in Thwaites solution over vector x
+        f = ueintbit(x(1),ue(1),x,ue);
+        
+        % Calculating theta/L using Thwaites solution
+        theta = sqrt((0.45/Re_L)*(ue.^-6).*f);
+        
+        % Creating reynolds number
+        Re_theta = Re_L*ue.*theta;
+        
+        m = -Re_L*(theta.^2)*due_dx;
+        
+        
+        for k=1:length(x)
+            H = thwaites_lookup(m(k));
+            He = laminar_He(H);
+            
+            if log(Re_theta(k)) >= 18.4*He - 21.74
+                seperation_points(i,j) = x(k);
+                break
+            end
+        end
+    end
+end
+
+
+table()
+
+disp(seperation_points)
+
+
+%{
+% Calculating theta/L using Blasius solution
+blausius_theta = (0.664/sqrt(Re_L))*sqrt(x);
+
+%% Plotting
+hold on
+plot(x,theta)
+plot(x,blausius_theta)
+legend('Thwaites’ solution', 'Blasius Solution')
+xlabel('$\frac{x}{L}$', 'Interpreter', 'latex', 'FontSize', 20) 
+ylabel('$\frac{\theta}{L}$', 'Interpreter', 'latex', 'FontSize', 20)
+title('Comparison of Momentum Thickness Variation')
+hold off
+%}
