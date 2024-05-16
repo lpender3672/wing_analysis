@@ -1,15 +1,13 @@
 clear
 close all
 
-Re_L_array = [5*10^6 ; 10*10^6 ; 20*10^6];
-due_de_array = [-0.1 ; 0 ; 0.1];
+Re_L_array = [10^6 ; 10^7 ; 10^8];
+due_de_array = [-0.2 ; 0 ; 0.2];
 
 
 % x = x/L setting domain
 n = 101;
 x = linspace(0,1,n);
-
-laminar = true;
 
 seperation_points = zeros(length(Re_L_array),length(due_de_array));
 
@@ -17,6 +15,7 @@ seperation_points = zeros(length(Re_L_array),length(due_de_array));
 for i=1:length(Re_L_array)
     % Looping through required gradients
     for j=1:length(due_de_array)    
+        laminar = true;
 
         % Setting flow Reynolds number
         Re_L = Re_L_array(i);
@@ -24,7 +23,9 @@ for i=1:length(Re_L_array)
         % Setting ue = ue/U based on velocity gradient due_dx
         due_dx = due_de_array(j);
         ue = 1 + due_dx*x;
-         
+        
+        % The fastest way of doing this might be to search for the point of
+        % seperation, then vectorise the calculation up until that point
         k = 1;
         while laminar && k < n
             % Calculate the integral in Thwaites solution over vector x
@@ -42,6 +43,9 @@ for i=1:length(Re_L_array)
             He = laminar_He(H);
             
             if log(Re_theta) >= 18.4*He - 21.74
+                % Flow has transitioned
+                laminar = false;
+
                 seperation_points(i,j) = x(k);
                 disp([x(k) Re_theta/1000])
                 break
@@ -66,7 +70,7 @@ table_data(2:end, 1) = arrayfun(@(x) sprintf('Re_L = %.0e', x), Re_L_array, 'Uni
 for i = 1:length(Re_L_array)
     for j = 1:length(due_de_array)
         if seperation_points(i, j) == 0
-            table_data{i + 1, j + 1} = 'No Seperation';
+            table_data{i + 1, j + 1} = 'No Transition';
         else
             table_data{i + 1, j + 1} = sprintf('%.2f', seperation_points(i, j));
         end
