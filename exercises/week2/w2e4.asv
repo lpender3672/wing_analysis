@@ -1,0 +1,24 @@
+clear 
+close all 
+
+tspan = [0 5];
+
+
+y0 = 1;
+
+function dthickdx = thickdash(xmx0,thick)
+    dthickdx = zeros(2,1);
+
+   He = thick(2)/
+    
+
+
+
+    dthickdx(0) = cf/2 - ((H+2)/ue)*due_dx*thick(1);
+    dthickdx(1) = c_diss - (3/ue)*due_dx*thick(2);
+ end
+
+[t,y] = ode45(@(t,y) y, tspan, y0);
+
+
+plot(t,y)
