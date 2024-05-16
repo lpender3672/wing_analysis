@@ -6,42 +6,48 @@ due_de_array = [-0.1 ; 0 ; 0.1];
 
 
 % x = x/L setting domain
-x = linspace(0,1,101);
+n = 101;
+x = linspace(0,1,n);
+
+laminar = true;
 
 seperation_points = zeros(length(Re_L_array),length(due_de_array));
 
-
+% Looping through required Reynolds Numbers
 for i=1:length(Re_L_array)
+    % Looping through required gradients
     for j=1:length(due_de_array)    
+
         % Setting flow Reynolds number
         Re_L = Re_L_array(i);
      
-        
         % Setting ue = ue/U based on velocity gradient due_dx
         due_dx = due_de_array(j);
         ue = 1 + due_dx*x;
-        
-        
-        % Calculate the integral in Thwaites solution over vector x
-        f = ueintbit(x(1),ue(1),x,ue);
-        
-        % Calculating theta/L using Thwaites solution
-        theta = sqrt((0.45/Re_L)*(ue.^-6).*f);
-        
-        % Creating reynolds number
-        Re_theta = Re_L*ue.*theta;
-        
-        m = -Re_L*(theta.^2)*due_dx;
-        
-        
-        for k=1:length(x)
-            H = thwaites_lookup(m(k));
+         
+        k = 1;
+        while laminar && k < n
+            % Calculate the integral in Thwaites solution over vector x
+            f = ueintbit(x(1),ue(1),x(k),ue(k));
+            
+            % Calculating theta/L using Thwaites solution
+            theta = sqrt((0.45/Re_L)*(ue(k)^-6)*f);
+            
+            % Creating reynolds number
+            Re_theta = Re_L*ue(k)*theta;
+            
+            m = -Re_L*(theta^2)*due_dx;
+
+            H = thwaites_lookup(m);
             He = laminar_He(H);
             
-            if log(Re_theta(k)) >= 18.4*He - 21.74
+            if log(Re_theta) >= 18.4*He - 21.74
                 seperation_points(i,j) = x(k);
+                disp([x(k) Re_theta/1000])
                 break
             end
+
+            k = k+1;
         end
     end
 end
