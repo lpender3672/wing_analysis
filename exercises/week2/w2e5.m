@@ -11,9 +11,6 @@ due_dx_array = [-0.25; -0.5; -0.95];
 
 
 x0 = 0.01;
-thick0(1) = 0.023*x0*(Re_L*x0)^(-1/6);
-thick0(2) = 1.83*thick0(1);
-
 seperation_points = zeros(length(Re_L_array),length(due_dx_array));
 
 % Looping through required Reynolds Numbers
@@ -23,6 +20,9 @@ for i=1:length(Re_L_array)
         % Setting flow Reynolds number
         Re_L = Re_L_array(i);
         due_dx = due_dx_array(j);
+
+        thick0(1) = 0.023*x0*(Re_L*x0)^(-1/6);
+        thick0(2) = 1.83*thick0(1);
 
         [delx thickhist] = ode45(@thickdash, [0 0.99], thick0);
         
