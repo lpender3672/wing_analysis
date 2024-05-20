@@ -5,7 +5,7 @@ close all
 global Re_L ue0 due_dx;
 
 % Setting parameters of model
-due_dx = -0.25;
+due_dx = -0.95;
 ue0 = 1;
 Re_L = 10^6;
 n = 101;
@@ -90,6 +90,7 @@ while i <=n && its == 0 % Loop runs while tbl attached and not at end
     % Dection of turbulent seperation
     if He(i) < 1.46
         its = 1;
+        H = 2.803;
         disp(append('TURBULENT SEPERATION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
     end
         
@@ -97,7 +98,6 @@ while i <=n && its == 0 % Loop runs while tbl attached and not at end
 
 end
 
-H = 2.803;
 
 while i <= n % Loop runs until end if tbl seperated
 
@@ -119,9 +119,12 @@ blas_theta = 0.664/sqrt(Re_L) * sqrt(x);
 %% Plotting
 figure(1)
 plot(x,He)
-title('$H_e$ Variation', 'Interpreter', 'latex')
+yline(1.58,'color','g','linestyle','--') % Turbulent reattachment
+yline(1.46,'color','r','linestyle','--') % Turbulent seperation
+title('$H_{e}$ Variation', 'Interpreter', 'latex')
 xlabel('$\frac{x}{L}$', 'Interpreter', 'latex', 'FontSize', 20) 
 ylabel('$H_{e}$', 'Interpreter', 'latex', 'FontSize', 20)
+legend('$H_{e}$','Turbulent Reattachment','Turbulent Seperation','Interpreter','latex')
 
 figure(2)
 hold on

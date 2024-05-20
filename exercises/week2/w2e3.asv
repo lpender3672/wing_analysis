@@ -11,10 +11,9 @@ x = linspace(0,1,n);
 
 % Looping through required Reynolds Numbers
 for i=1:length(Re_L_array)
-    % Setting flags
     laminar = true;
-    int = 0; % Index of natrual transiton
-    ils = 0; % Index of laminar seperation
+    int = 0;
+    ils = 0;
 
     % Setting flow Reynolds number
     Re_L = Re_L_array(i);
@@ -35,8 +34,8 @@ for i=1:length(Re_L_array)
         % Creating reynolds number
         Re_theta = Re_L*ue(k)*theta;
         
-        % Calculation of He
         m = -Re_L*(theta^2)*due_dx;
+
         H = thwaites_lookup(m);
         He = laminar_He(H);
         
@@ -56,16 +55,17 @@ for i=1:length(Re_L_array)
         k = k+1;
     end
 
+    % If natural transition occurs, display where
     if int ~= 0
-        % Transition occurs, display location 
+
         disp(append('Re_L= ', string(Re_L_array(i),' Transition occurs at x/L= ', string(x(int)), 'At Re_theta= ', string(Re_theta))))
 
     end
     
     if ils ~= 0
-        % Seperation occurs, display location
-        disp(['Re_L = ' num2str(Re_L_array(i)) '   Seperation x/L = ' num2str(x(ils)) '   At Re_theta= ' num2str(Re_theta)])
+        disp(append('Re_L= ', string(Re_L_array(i),' Seperation occurs at x/L= ', string(x(int)), 'At Re_theta= ', string(Re_theta))))
 
     end
 
 end
+

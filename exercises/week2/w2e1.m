@@ -23,10 +23,10 @@ blausius_theta = (0.664/sqrt(Re_L))*sqrt(x);
 hold on
 plot(x,theta)
 plot(x,blausius_theta)
-legend('Thwaites’ solution', 'Blasius Solution')
+legend('Thwaites solution', 'Blasius Solution')
 xlabel('$\frac{x}{L}$', 'Interpreter', 'latex', 'FontSize', 20) 
 ylabel('$\frac{\theta}{L}$', 'Interpreter', 'latex', 'FontSize', 20)
-title('Comparison of Momentum Thickness Variation')
+grid on
 hold off
 
 print -deps2c exercises\week2\figures\w2e1.eps

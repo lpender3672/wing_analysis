@@ -1,6 +1,7 @@
 clear
 close all
 
+% Trial various reynolds numbers
 Re_L_array = logspace(log10(8*10^5), log10(9*10^5), 10000);
 due_dx = -0.25;
 
@@ -9,7 +10,7 @@ n = 101;
 x = linspace(0,1,n);
 
 
-% Looping through required Reynolds Numbers
+% Looping through trial Reynolds numbers
 for i=1:length(Re_L_array)
     laminar = true;
     int = 0;
@@ -34,8 +35,8 @@ for i=1:length(Re_L_array)
         % Creating reynolds number
         Re_theta = Re_L*ue(k)*theta;
         
+        % Calculating He
         m = -Re_L*(theta^2)*due_dx;
-
         H = thwaites_lookup(m);
         He = laminar_He(H);
         
@@ -55,11 +56,12 @@ for i=1:length(Re_L_array)
         k = k+1;
     end
 
-    % If natural transition occurs, display where
+
     if int ~= 0
+        % Natural transition has occured 
         disp(['Natural transition at ' num2str(x(int)) ...
          ' with Rethet ' num2str(Re_theta) ' at Re_L ' num2str(Re_L)])
-        break
+        break % Break loop so only first Re_L that gives seperation is shown
     end
 
 end

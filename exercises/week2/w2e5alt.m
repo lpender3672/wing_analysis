@@ -3,7 +3,7 @@ close all
 
 global Re_L ue0 due_dx;
 
-Re_L = 10^7;
+Re_L = 10^6;
 ue0 = 1;
 due_dx = -0.5;
 
@@ -12,7 +12,7 @@ thick0 = zeros(1,2);
 thick0(1) = 0.023*x0*(Re_L*x0)^(-1/6);
 thick0(2) = 1.83*thick0(1);
 
-[delx , thickhist] = ode45(@thickdashalt,[0 0.99], thick0);
+[delx , thickhist] = ode45(@thickdash,[0 0.99], thick0);
 
 x = x0 + delx;
 exact_theta = thickhist(:,1);
