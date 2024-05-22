@@ -7,8 +7,8 @@ global Re_L ue0 due_dx;
 % Setting parameters of model
 due_dx = -0.25;
 ue0 = 1;
-Re_L = 10^4;
-n = 101;
+Re_L = 10^6;
+n = 301;
 
 % Defined here as ue0 must change significance in turbulent solver
 ue0_t = ue0;
@@ -134,7 +134,7 @@ if ils ~= 0
 end
 
 if int ~= 0
-    plotHandles(end+1) = xline(x(int), '--', 'color', 'magenta', 'DisplayName', 'Turbulent transition');
+    plotHandles(end+1) = xline(x(int), '--', 'color', 'magenta', 'DisplayName', 'Natural Transition');
     plotLabels{end+1} = 'Turbulent transition';
 end
 
@@ -148,22 +148,21 @@ if its ~= 0
     plotLabels{end+1} = 'Turbulent seperation';
 end
 
-ylim([1.3 1.8])
+ylim([1.3 1.9])
 grid on
-title('$H_{e}$ Variation', 'Interpreter', 'latex')
 xlabel('$\frac{x}{L}$', 'Interpreter', 'latex', 'FontSize', 20) 
 ylabel('$H_{e}$', 'Interpreter', 'latex', 'FontSize', 20)
 
 % Create the legend using plot handles and labels
 legend([plotHandles], plotLabels, 'Interpreter', 'latex','Location','northwest')
 
+print -deps2c exercises\week2\figures\w2e6_he_re6_0pg
 % Initialize arrays to store plot handles and labels
 plotHandles = [];
 plotLabels = {};
 
 figure(2)
 hold on
-
 % Correct the typo in plotHandles and use the correct variable
 plotHandles(end+1) = plot(x, theta, 'DisplayName', 'Solver solution');
 plotLabels{end+1} = 'Solver solution';
@@ -177,7 +176,7 @@ if ils ~= 0
 end
 
 if int ~= 0
-    plotHandles(end+1) = xline(x(int), '--', 'color', 'magenta', 'DisplayName', 'Turbulent transition');
+    plotHandles(end+1) = xline(x(int), '--', 'color', 'magenta', 'DisplayName', 'Natural Transition');
     plotLabels{end+1} = 'Turbulent transition';
 end
 
@@ -192,10 +191,10 @@ if its ~= 0
 end
 
 grid on
-title('$\theta$ Variation', 'Interpreter', 'latex')
 xlabel('$\frac{x}{L}$', 'Interpreter', 'latex', 'FontSize', 20) 
 ylabel('$\frac{\theta}{L}$', 'Interpreter', 'latex', 'FontSize', 20)
 
 % Create the legend using plot handles and labels
 legend(plotHandles, plotLabels, 'Interpreter', 'latex', 'Location', 'northwest')
-hold offS
+hold off
+print -deps2c exercises\week2\figures\w2e6_theta_re6_0pg
