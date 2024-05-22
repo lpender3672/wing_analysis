@@ -129,7 +129,7 @@ plotHandles(end+1) = plot(x, He, 'DisplayName', '$H_{e}$');
 plotLabels{end+1} = '$H_{e}$';
 
 if ils ~= 0
-    plotHandles(end+1) = xline(x(ils), '--', 'color', 'cyan', 'DisplayName', 'Laminar separation');  
+    plotHandles(end+1) = xline(x(ils), '--', 'color', [.5 0 .5], 'DisplayName', 'Laminar separation');  
     plotLabels{end+1} = 'Laminar Separation';     
 end
 
@@ -172,7 +172,7 @@ plotHandles(end+1) = plot(x, blas_theta, 'DisplayName', 'Blasius Solution $\left
 plotLabels{end+1} = 'Blasius Solution $\left(\frac{dp}{dx}=0\right)$';
 
 if ils ~= 0
-    plotHandles(end+1) = xline(x(ils), '--', 'color', 'cyan', 'DisplayName', 'Laminar separation');  
+    plotHandles(end+1) = xline(x(ils), '--', 'color', [.5 0 .5], 'DisplayName', 'Laminar separation');  
     plotLabels{end+1} = 'Laminar Separation';     
 end
 
@@ -198,4 +198,4 @@ ylabel('$\frac{\theta}{L}$', 'Interpreter', 'latex', 'FontSize', 20)
 
 % Create the legend using plot handles and labels
 legend(plotHandles, plotLabels, 'Interpreter', 'latex', 'Location', 'northwest')
-hold off
+hold offS
