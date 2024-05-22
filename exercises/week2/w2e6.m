@@ -5,7 +5,7 @@ close all
 global Re_L ue0 due_dx;
 
 % Setting parameters of model
-due_dx = -0.25;
+due_dx = 0;
 ue0 = 1;
 Re_L = 10^6;
 n = 301;
