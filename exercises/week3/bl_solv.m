@@ -62,11 +62,12 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         disp(append('LAMINAR SEPERATION  -->  x: ',string(x(1)), ' Re_theta: ' ,string(Re_theta/1000)))
     end
 
-
-
+    %disp('hi')
+                
     i = 2;
     ue_prev = ue;
     while i <= n && laminar  % Loop runs while bl laminar and end not reached
+        %disp('Hello')
         
         % Finding all required values using empirical relations
         ue = sqrt(1 - cp(i));
@@ -75,7 +76,8 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         due_dx = (ue - ue_prev)/(x(i) - x(i-1));
       
 
-        theta(i) = sqrt((0.45/Re_L)*(ue^-6)*ueintbit(x(i-1),ue_prev,x(i),ue));
+        theta(i) = sqrt((0.45/Re_L)*(ue^-6)*ueintbit(0,ue0,x(i),ue));
+        %disp(theta(i))
      
         Re_theta = Re_L * ue * theta(i);
     
