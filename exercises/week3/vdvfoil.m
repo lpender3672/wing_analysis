@@ -8,13 +8,14 @@ function [xvdv yvdv cpvdv] = vdvfoil ( npan, alpha )
 %  NB Panel spacing non-uniform!
 %
 
+%{
 % parameters for thin (approx 8%) section
 k = 1.95;
 eps = 0.03;
-
+%}
 % parameters for thick (approx 14%) section
-%k = 1.9;
-%eps = 0.05;
+k = 1.9;
+eps = 0.05;
 
 % panel locations
 theta = (0:npan) * 2*pi/npan;
