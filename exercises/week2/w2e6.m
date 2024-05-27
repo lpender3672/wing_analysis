@@ -5,9 +5,9 @@ close all
 global Re_L ue0 due_dx;
 
 % Setting parameters of model
-due_dx = 0;
+due_dx = -0.41;
 ue0 = 1;
-Re_L = 10^6;
+Re_L = 10^5;
 n = 301;
 
 % Defined here as ue0 must change significance in turbulent solver
@@ -156,7 +156,7 @@ ylabel('$H_{e}$', 'Interpreter', 'latex', 'FontSize', 20)
 % Create the legend using plot handles and labels
 legend([plotHandles], plotLabels, 'Interpreter', 'latex','Location','northwest')
 
-print -deps2c exercises\week2\figures\w2e6_he_re6_0pg
+print -deps2c exercises\week2\figures\w2e6_he_re5_41pg
 % Initialize arrays to store plot handles and labels
 plotHandles = [];
 plotLabels = {};
@@ -197,4 +197,4 @@ ylabel('$\frac{\theta}{L}$', 'Interpreter', 'latex', 'FontSize', 20)
 % Create the legend using plot handles and labels
 legend(plotHandles, plotLabels, 'Interpreter', 'latex', 'Location', 'northwest')
 hold off
-print -deps2c exercises\week2\figures\w2e6_theta_re6_0pg
+print -deps2c exercises\week2\figures\w2e6_theta_re5_41pg
