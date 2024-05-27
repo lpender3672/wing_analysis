@@ -39,7 +39,8 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
     % Initialisation 
     ue = sqrt(1-cp(1));
     due_dx = (ue - 0)/(x(1));
-    theta(1) = sqrt((0.45/Re_L)*(ue^-6)*ueintbit(0,ue0,x(1),ue));
+    integral = ueintbit(0,ue0,x(1),ue);
+    theta(1) = sqrt((0.45/Re_L)*(ue^-6)*integral);
  
     Re_theta = Re_L * ue * theta(1);
     m = -Re_L* theta(1)^2 * due_dx;
@@ -75,8 +76,8 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         % Backwards difference method used to calculate 
         due_dx = (ue - ue_prev)/(x(i) - x(i-1));
       
-
-        theta(i) = theta(i-1) + sqrt((0.45/Re_L)*(ue^-6)*ueintbit(x(i-1),ue_prev,x(i),ue));
+        integral = integral + ueintbit(x(i-1), ue_prev, x(i), ue);
+        theta(i) = sqrt((0.45/Re_L)*(ue^-6)*integral);
         %disp(theta(i))
      
         Re_theta = Re_L * ue * theta(i);
@@ -92,7 +93,7 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         if log(Re_theta) >= 18.4*He(i) - 21.74
             laminar = false;
             int = i;
-            disp(append('NATURAL TRANSITION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
+            %disp(append('NATURAL TRANSITION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
         end
         
         % Detection of laminar seperation
@@ -100,7 +101,7 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
             laminar = false;
             ils = i;
             He(i) = 1.5109;
-            disp(append('LAMINAR SEPERATION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
+            %disp(append('LAMINAR SEPERATION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
         end
        
         ue_prev = ue;
@@ -131,14 +132,14 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         % Detection of turbulent reattachment
         if He(i) > 1.58 && itr == 0
             itr = i;
-            disp(append('TURBULENT REATTACHMENT  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))   
+            %disp(append('TURBULENT REATTACHMENT  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))   
         end
     
         % Dection of turbulent seperation
         if He(i) < 1.46
             its = i;
             H = 2.803;
-            disp(append('TURBULENT SEPERATION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
+            %disp(append('TURBULENT SEPERATION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
         end
         
         ue_prev = ue0;
@@ -148,7 +149,9 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
     
     
     while i <= n % Loop runs until end if tbl seperated
-        theta(i) = theta(i-1) * (ue_prev/sqrt(1-cp(i)))^(H+2);
+        ue = sqrt(1-cp(i));
+        theta(i) = theta(i-1) * (ue_prev/ue)^(H+2);
+        delstar(i) = H * theta(i); % H constant but theta varying
         He(i) = He(i-1); % He stays constant (no reattachment)
         ue_prev = ue;
         i = i + 1;

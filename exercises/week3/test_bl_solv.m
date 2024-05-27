@@ -3,8 +3,8 @@
 clear all
 global Re_L
 
-%Re_L = 10000000;
-Re_L = 10000;
+Re_L = 10000000;
+%Re_L = 10000;
 
 n = 100;
 x = linspace(1/n,1,n);
