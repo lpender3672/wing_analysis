@@ -76,7 +76,7 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         due_dx = (ue - ue_prev)/(x(i) - x(i-1));
       
 
-        theta(i) = sqrt((0.45/Re_L)*(ue^-6)*ueintbit(0,ue0,x(i),ue));
+        theta(i) = theta(i-1) + sqrt((0.45/Re_L)*(ue^-6)*ueintbit(x(i-1),ue_prev,x(i),ue));
         %disp(theta(i))
      
         Re_theta = Re_L * ue * theta(i);
