@@ -68,6 +68,12 @@ ylabel('-c_p')
 title('Van de Vooren cps; varying panel size')
 legend('exact','100pans','200pans','400pans','800pans')
 
+
+diff = xs8(2:end) - xs8(1:end-1); % Used to show that in general delx is not constant
+figure(9)
+plot(xs8(1:end-1),diff)
+
+%{
 figure(3)
 plot(xsin,-cpex,xs1,-cp1,'--')
 
@@ -79,3 +85,4 @@ plot(xsin,-cpex,xs4,-cp4,'--')
 
 figure(6)
 plot(xsin,-cpex,xs8,-cp8,'--')
+%}
