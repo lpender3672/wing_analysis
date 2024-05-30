@@ -15,7 +15,7 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
     global Re_L ue0 due_dx;
     
     % Setting parameters of model
-    ue0 = 1;
+    ue0 = 1.0;
     n = length(x); % Number of panels is number of points
     
     % Defined here as ue0 must change significance in turbulent solver
@@ -64,23 +64,23 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         %disp(append('LAMINAR SEPERATION  -->  x: ',string(x(1)), ' Re_theta: ' ,string(Re_theta/1000)))
     end
     %}
-                
+    ue = sqrt(1 - cp);
 
     i = 2;
-    ue_prev = ue;
     while i <= n && laminar  % Loop runs while bl laminar and end not reached
        
         % Finding all required values using empirical relations
-        ue = sqrt(1 - cp(i));
         
-        % Backwards difference method used to calculate 
-        due_dx = (ue - ue_prev)/(x(i) - x(i-1));
+        
+        % Backwards difference method used to calculate
+
+        due_dx = (ue(i) - ue(i-1))/(x(i) - x(i-1));
       
-        integral = integral + ueintbit(x(i-1), ue_prev, x(i), ue);
-        theta(i) = sqrt((0.45/Re_L)*(ue^-6)*integral);
+        integral = integral + ueintbit(x(i-1), ue(i-1), x(i), ue(i));
+        theta(i) = sqrt((0.45/Re_L)*(ue(i)^-6)*integral);
         %disp(theta(i))
      
-        Re_theta = Re_L * ue * theta(i);
+        Re_theta = Re_L * ue(i) * theta(i);
     
         m = -Re_L* theta(i)^2 * due_dx;
     
@@ -104,7 +104,6 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
             %disp(append('LAMINAR SEPERATION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
         end
        
-        ue_prev = ue;
         i = i +1;
     end
     
@@ -114,8 +113,8 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
     while i <= n && its == 0 % Loop runs while tbl attached and not at end
         
         % ue0 has changed meaning here to be the velocity at start of panel
-        ue0 = sqrt(1-cp(i));
-        due_dx = (ue0-ue_prev)/(x(i) - x(i-1));
+        ue0 = ue(i);
+        due_dx = (ue0-ue(i-1))/(x(i) - x(i-1));
         
         % Inital conditions for ode45 solution
 
@@ -128,34 +127,28 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         theta(i) = thickhis(end,1);
         del_e = thickhis(end,2);
         He(i) = del_e/theta(i);
-        H = (11*He + 15)/(48*He - 59);
+        H = (11*He(i) + 15)/(48*He(i) - 59);
         delstar(i) = H*theta(i);
         % Detection of turbulent reattachment
         if He(i) > 1.58 && itr == 0
             itr = i;
-            %disp(append('TURBULENT REATTACHMENT  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))   
         end
     
         % Dection of turbulent seperation
         if He(i) < 1.46
             its = i;
             H = 2.803;
-            %disp(append('TURBULENT SEPERATION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
+            break
         end
         
-        ue_prev = ue0;
         i = i + 1 ;
-    
     end
-    
     
     while i <= n % Loop runs until end if tbl seperated
 
-        ue = sqrt(1-cp(i));
-        theta(i) = theta(i-1) * (ue_prev/ue)^(H+2);
+        theta(i) = theta(i-1) * (ue(i-1)/ue(i))^(H+2);
         delstar(i) = H * theta(i); % H constant but theta varying
         He(i) = He(i-1); % He stays constant (no reattachment)
-        ue_prev = ue;
         i = i + 1;
     end
 
