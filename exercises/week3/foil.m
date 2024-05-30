@@ -160,11 +160,12 @@ for nalpha = 1:length(alpha)
   disp(lowerbl)
 
 %    save data for this alpha
+%{
   fname = ['Data/' caseref '_' num2str(alpha(nalpha)) '.mat'];
   save ( fname, 'Cl', 'Cd', 'xs', 'cp', ...
          'sl', 'delstarl', 'thetal', 'lowerbl', ...
          'su', 'delstaru', 'thetau', 'upperbl' )
-
+%}
 end
 
 %  save alpha sweep data in summary file
