@@ -14,6 +14,10 @@ parfile = ['Parfiles/' caseref '.txt'];
 fprintf(1, '%s\n\n', ['Reading in parameter file: ' parfile])
 [section np Re_L alpha] = par_read(parfile);
 
+if alpha > 10
+    error('DETAILED CODE NOT SWEEP CODE')
+end
+
 %  Read in the section geometry
 secfile = ['Geometry/' section '.surf'];
 [xk yk] = textread ( secfile, '%f%f' );
@@ -160,12 +164,13 @@ for nalpha = 1:length(alpha)
   disp(lowerbl)
 
 %    save data for this alpha
-%{
+
   fname = ['Data/' caseref '_' num2str(alpha(nalpha)) '.mat'];
   save ( fname, 'Cl', 'Cd', 'xs', 'cp', ...
          'sl', 'delstarl', 'thetal', 'lowerbl', ...
-         'su', 'delstaru', 'thetau', 'upperbl' )
-%}
+         'su', 'delstaru', 'thetau', 'upperbl', ...
+         'cpl','cpu')
+
 end
 
 %  save alpha sweep data in summary file

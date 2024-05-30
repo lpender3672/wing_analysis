@@ -47,7 +47,8 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
     H = thwaites_lookup(m);
     delstar(1) = H*theta(1);
     He(1) = laminar_He(H);
-
+    
+    %{
     % If transition or seperation occurs within the first panel
     if log(Re_theta) >= 18.4*He(1) - 21.74
         laminar = false;
@@ -62,14 +63,13 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         He(1) = 1.5109;
         %disp(append('LAMINAR SEPERATION  -->  x: ',string(x(1)), ' Re_theta: ' ,string(Re_theta/1000)))
     end
-
-    %disp('hi')
+    %}
                 
+
     i = 2;
     ue_prev = ue;
     while i <= n && laminar  % Loop runs while bl laminar and end not reached
-        %disp('Hello')
-        
+       
         % Finding all required values using empirical relations
         ue = sqrt(1 - cp(i));
         
@@ -105,13 +105,13 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         end
        
         ue_prev = ue;
-        i = i + 1;        
+        i = i +1;
     end
     
     % Calculate del_e at separation for inital conditions to turbulent solver
     del_e = He(i-1) * theta(i-1);
     
-    while i <=n && its == 0 % Loop runs while tbl attached and not at end
+    while i <= n && its == 0 % Loop runs while tbl attached and not at end
         
         % ue0 has changed meaning here to be the velocity at start of panel
         ue0 = sqrt(1-cp(i));
@@ -128,7 +128,8 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         theta(i) = thickhis(end,1);
         del_e = thickhis(end,2);
         He(i) = del_e/theta(i);
-        
+        H = (11*He + 15)/(48*He - 59);
+        delstar(i) = H*theta(i);
         % Detection of turbulent reattachment
         if He(i) > 1.58 && itr == 0
             itr = i;
@@ -149,6 +150,7 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
     
     
     while i <= n % Loop runs until end if tbl seperated
+
         ue = sqrt(1-cp(i));
         theta(i) = theta(i-1) * (ue_prev/ue)^(H+2);
         delstar(i) = H * theta(i); % H constant but theta varying
