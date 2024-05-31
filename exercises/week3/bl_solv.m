@@ -14,13 +14,11 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
     % Define global variables for parameters used in ode45
     global Re_L ue0 due_dx;
     
-    % Setting parameters of model
-    ue0 = 1.0;
+  
+    ue0 = 0; %  Boundary layer outer velocity at stagnation point
     n = length(x); % Number of panels is number of points
     
-    % Defined here as ue0 must change significance in turbulent solver
-    ue0_t = ue0;
-    
+
     % Initalise solution arrays
     theta = zeros(1,n);
     He = zeros(1,n);
@@ -48,23 +46,8 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
     delstar(1) = H*theta(1);
     He(1) = laminar_He(H);
     
-    %{
-    % If transition or seperation occurs within the first panel
-    if log(Re_theta) >= 18.4*He(1) - 21.74
-        laminar = false;
-        int = 1;
-        %disp(append('NATURAL TRANSITION  -->  x: ',string(x(1)), ' Re_theta: ' ,string(Re_theta/1000)))
-    end
-        
-    % Detection of laminar seperation
-    if m > 0.09
-        laminar = false;
-        ils = 1;
-        He(1) = 1.5109;
-        %disp(append('LAMINAR SEPERATION  -->  x: ',string(x(1)), ' Re_theta: ' ,string(Re_theta/1000)))
-    end
-    %}
-    ue = sqrt(1 - cp);
+
+    ue = sqrt(1 - cp); % Vectoral calculation of ue over domain
 
     i = 2;
     while i <= n && laminar  % Loop runs while bl laminar and end not reached
@@ -72,7 +55,7 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         % Finding all required values using empirical relations
         
         
-        % Backwards difference method used to calculate
+        % Backwards difference calculation of velocity gradient 
 
         due_dx = (ue(i) - ue(i-1))/(x(i) - x(i-1));
       
@@ -94,6 +77,7 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
             laminar = false;
             int = i;
             %disp(append('NATURAL TRANSITION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
+            %disp(append('theta: ',string(theta(i)), ' ue: ' ,string(ue(i))))
         end
         
         % Detection of laminar seperation
@@ -107,6 +91,7 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         i = i +1;
     end
     
+
     % Calculate del_e at separation for inital conditions to turbulent solver
     del_e = He(i-1) * theta(i-1);
     

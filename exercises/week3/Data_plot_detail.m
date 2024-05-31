@@ -3,7 +3,7 @@ close all
 
 %data_file = input('Data file name: ','s');
 
-data_file = '0012_det_5.4.mat';
+data_file = '4412_det_0.436.mat';
 data_struc = load(data_file);
 
 % Load in first data file
@@ -16,7 +16,7 @@ cpu = data_struc.cpu;
 cpl = data_struc.cpl;
 
 % Load in second data file
-data_file2 = '0012_det_5.45.mat';
+data_file2 = '4412_det_0.438.mat';
 data_struc2 = load(data_file2);
 thetal2 = data_struc2.thetal;
 thetau2 = data_struc2.thetau;
