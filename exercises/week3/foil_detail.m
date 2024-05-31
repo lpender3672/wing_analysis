@@ -36,6 +36,13 @@ nphr = 5*np;
 A = build_lhs ( xs, ys );
 Am1 = inv(A);
 
+% Defining x-y values of domain for contour plot
+x = linspace(-1,2,401);
+y = linspace(-1,1,321);
+
+% Creation of domain meshgrid for contour plot
+[xm, ym] = meshgrid(x, y);
+
 %  Loop over alpha values
 for nalpha = 1:length(alpha)
 
@@ -46,8 +53,18 @@ for nalpha = 1:length(alpha)
 %    solve for surface vortex sheet strength
   gam = Am1 * b;
 
-%    calculate cp distribution and overall circulation
+% Free stream solution to phi for contour plot
+psi = ym*cos(alfrad) - xm*sin(alfrad);
+
+% Effect of each panel on phi for contour plot
+for i=1:length(gam)-1
+    [infa,infb] = panelinf_vec(xs(i),ys(i),xs(i+1),ys(i+1),xm,ym);
+    psi = psi + gam(i)*infa + gam(i+1)*infb;
+end
+  
+  %    calculate cp distribution and overall circulation
   [cp circ] = potential_op ( xs, ys, gam );
+  
 
 %    locate stagnation point and calculate stagnation panel length
   [ipstag fracstag] = find_stag(gam);
@@ -170,7 +187,7 @@ for nalpha = 1:length(alpha)
          'iunt','iuls','iutr','iuts','xs', 'cp', ...
          'sl', 'delstarl', 'thetal', 'lowerbl', ...
          'su', 'delstaru', 'thetau', 'upperbl', ...
-         'cpl','cpu')
+         'cpl','cpu','xm','ym','psi')
 
 end
 

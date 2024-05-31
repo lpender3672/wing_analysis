@@ -2,7 +2,7 @@ clear
 close all
 
 datafiles = ["0012_swp.mat",...
-    "4412_swp.mat"];
+    "1408_swp.mat"];
 
 alpha = {};
 cdswp = {};
