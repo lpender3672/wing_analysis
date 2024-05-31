@@ -3,7 +3,7 @@ close all
 
 %data_file = input('Data file name: ','s');
 
-data_file = '4412_det.mat';
+data_file = 'bezier.mat';
 data_struc = load(data_file);
 
 if isfield(data_struc, 'alpha')
