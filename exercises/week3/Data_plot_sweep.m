@@ -3,7 +3,7 @@ close all
 
 %data_file = input('Data file name: ','s');
 
-data_file = '0012_swp.mat';
+data_file = '4412_det.mat';
 data_struc = load(data_file);
 
 if isfield(data_struc, 'alpha')
@@ -45,10 +45,10 @@ end
 
 figure(1)
 plot(alpha,clswp,'r')
-xticks(x)
-xlim([-24,32])
-yticks(y)
-ylim([-1.8,2.8])
+%xticks(x)
+%xlim([-24,32])
+%yticks(y)
+%ylim([-1.8,2.8])
 %imshow(img)
 xlabel('$\alpha$','Interpreter','latex')
 ylabel('$c_{L}$','Interpreter','latex')
