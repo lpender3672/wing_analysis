@@ -44,6 +44,11 @@ gam = Am1 * b;
 %    calculate cp distribution and overall circulation
 [cp circ] = potential_op ( xs, ys, gam );
 
+if yields(cp, pts)
+    clcd = inf;
+    return;
+end
+
 %    locate stagnation point and calculate stagnation panel length
 [ipstag fracstag] = find_stag(gam);
 dsstag = sqrt((xs(ipstag+1)-xs(ipstag))^2 + (ys(ipstag+1)-ys(ipstag))^2);
