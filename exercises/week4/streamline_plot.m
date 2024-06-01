@@ -1,8 +1,8 @@
 clear
 close all 
 
-datafile = "Data\0012_clip_det_8.mat";
-datafile_ov = "Data\0012_clip_det.mat";
+datafile = "Data\6412_det_8.mat";
+datafile_ov = "Data\6412_det.mat";
 
 alpha = 8; 
 

@@ -1,8 +1,12 @@
 clear
 close all
-
+%{
+datafiles = ["2212_swp.mat",...
+    "2412_swp.mat",...
+    "2612_swp.mat"];
+%}
 datafiles = ["0012_swp.mat",...
-    "1408_swp.mat"];
+    "6412_swp.mat"];
 
 alpha = {};
 cdswp = {};
@@ -37,7 +41,7 @@ end
 hold off
 xlabel('$\alpha$','Interpreter','latex')
 ylabel('$c_{l}$','Interpreter','latex')
-legend(datafiles, 'Interpreter', 'none') 
+legend(datafiles, 'Interpreter', 'none','location','northwest') 
 
 subplot(1,2,2);
 hold on
@@ -47,7 +51,7 @@ end
 hold off
 xlabel('$\alpha$','Interpreter','latex')
 ylabel('$c_{d}$','Interpreter','latex')
-legend(datafiles, 'Interpreter', 'none') 
+legend(datafiles, 'Interpreter', 'none','location','northwest') 
 
 figure(2)
 subplot(1,2,1)
@@ -58,7 +62,7 @@ end
 hold off
 xlabel('$c_{l}$','Interpreter','latex')
 ylabel('$c_{d}$','Interpreter','latex')
-legend(datafiles, 'Interpreter', 'none') 
+legend(datafiles, 'Interpreter', 'none','location','northwest') 
 
 subplot(1,2,2)
 hold on
@@ -68,7 +72,7 @@ end
 hold off
 xlabel('$\alpha$','Interpreter','latex')
 ylabel('$\frac{c_{l}}{c_{d}}$','Interpreter','latex')
-legend(datafiles, 'Interpreter', 'none') 
+legend(datafiles, 'Interpreter', 'none','location','northwest') 
 
 figure(3)
 hold on
@@ -79,6 +83,6 @@ hold off
 axis image
 xlabel('x/c')
 ylabel('y/c')
-legend(datafiles, 'Interpreter', 'none')
+legend(datafiles, 'Interpreter', 'none','location','northeast') 
 
 
