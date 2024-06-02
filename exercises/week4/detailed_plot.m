@@ -8,9 +8,7 @@ datafiles = ["0018_det_0.mat",...
             ];
 %}
 
-datafiles = ["0006_det_8.mat",...
-    "0012_det_8.mat",...
-    "0018_det_8.mat"];
+datafiles = ["6412_det_4.mat"];
 
 
 angle_file = char(datafiles(1));
@@ -25,7 +23,7 @@ ys = airfoil_struct.ys;
 % set to true to see boundary layer transitions
 % (not recommended for multiple plots)
 
-plot_transitions =false;
+plot_transitions =true;
 
 su_array = {};
 cpu_array = {};
@@ -132,7 +130,7 @@ hold off
 xlabel('Lower Surface','Interpreter','latex')
 ylabel('Lower $c_{p}$','Interpreter','latex')
 legend(datafiles, 'Interpreter', 'none')
-title('$c_{p}$ Upper Surface','Interpreter','latex')
+title('$c_{p}$ Lower Surface','Interpreter','latex')
 
 
 

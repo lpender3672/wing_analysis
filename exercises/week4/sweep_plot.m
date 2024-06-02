@@ -6,7 +6,8 @@ datafiles = ["2212_swp.mat",...
     "2612_swp.mat"];
 %}
 datafiles = ["0012_swp.mat",...
-    "6412_swp.mat"];
+    "6412_swp.mat",...
+    "6412lowsw_swp.mat"];
 
 alpha = {};
 cdswp = {};
