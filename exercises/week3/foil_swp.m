@@ -32,6 +32,18 @@ nphr = 5*np;
 A = build_lhs ( xs, ys );
 Am1 = inv(A);
 
+cpdists = zeros(length(alpha), np+1 );
+
+iunts = zeros(1, length(alpha));
+iulss = zeros(1, length(alpha));
+iutrs = zeros(1, length(alpha));
+iutss = zeros(1, length(alpha));
+
+ilnts = zeros(1, length(alpha));
+illss = zeros(1, length(alpha));
+iltrs = zeros(1, length(alpha));
+iltss = zeros(1, length(alpha));
+
 %  Loop over alpha values
 for nalpha = 1:length(alpha)
 
@@ -48,6 +60,7 @@ for nalpha = 1:length(alpha)
 %    locate stagnation point and calculate stagnation panel length
   [ipstag fracstag] = find_stag(gam);
   dsstag = sqrt((xs(ipstag+1)-xs(ipstag))^2 + (ys(ipstag+1)-ys(ipstag))^2);
+  
 
 %    upper surface boundary layer calc
 
@@ -70,6 +83,10 @@ for nalpha = 1:length(alpha)
 
 %    boundary layer solver
   [iunt iuls iutr iuts delstaru thetau] = bl_solv ( su, cpu );
+  iunts(nalpha) = iunt;
+  iulss(nalpha) = iuls;
+  iutrs(nalpha) = iutr;
+  iutss(nalpha) = iuts;
 
 %    lower surface boundary layer calc
 
@@ -92,12 +109,17 @@ for nalpha = 1:length(alpha)
 
 %    boundary layer solver
   [ilnt ills iltr ilts delstarl thetal] = bl_solv ( sl, cpl );
+  ilnts(nalpha) = ilnt;
+  illss(nalpha) = ills;
+  iltrs(nalpha) = iltr;
+  iltss(nalpha) = ilts;
 
 %    lift and drag coefficients
   [Cl Cd] = forces ( circ, cp, delstarl, thetal, delstaru, thetau );
 
 %    copy Cl and Cd into arrays for alpha sweep plots
 
+  cpdists(nalpha,:) = cp;
   clswp(nalpha) = Cl;
   cdswp(nalpha) = Cd;
   lovdswp(nalpha) = Cl/Cd;
@@ -107,4 +129,12 @@ end
 %  save alpha sweep data in summary file
 
 fname = ['Data/' caseref '.mat'];
-save ( fname, 'xs', 'ys', 'alpha', 'clswp', 'cdswp', 'lovdswp' )
+save ( fname, 'xs', 'ys', 'alpha', 'clswp', 'cdswp', 'lovdswp', 'cpdists',...
+    'iunts',...
+    'iulss',...
+    'iutrs',...
+    'iutss',...
+    'ilnts',...
+    'illss',...
+    'iltrs',...
+    'iltss')

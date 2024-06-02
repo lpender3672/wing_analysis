@@ -10,10 +10,10 @@ np = 100;
 id = 'opt';
 
 % define initial aerofoil conditions in 1d vector for fminsearch
-initial_y_points = [0.2, 0.1, 0.1, 0.05];
+initial_y_points = [0.2, 0.15, 0.15, 0.15, 0.1, 0.1];
 
 % define optimsation options
-options = optimset('Display', 'iter', 'MaxFunEvals', 500, 'TolFun', 1e-6);
+options = optimset('Display', 'iter', 'MaxFunEvals', 2000, 'TolFun', 1e-6);
 best_y_points = fminsearch(@bezierNd, initial_y_points, options);
 
 % display best geometry parameters
