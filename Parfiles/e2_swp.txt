@@ -1,4 +1,4 @@
-Section identifier              : 0012_clip
+Section identifier              : e2
 Number of panels                : 800
 Reynolds number                 : 3e6
 Range of incidences (degrees)   : -10:0.05:10

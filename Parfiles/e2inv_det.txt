@@ -1,0 +1,4 @@
+Section identifier              : e2
+Number of panels                : 800
+Reynolds number                 : 3e6
+Range of incidences (degrees)   : 3.4:0.05:3.5

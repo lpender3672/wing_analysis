@@ -76,8 +76,6 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         if log(Re_theta) >= 18.4*He(i) - 21.74
             laminar = false;
             int = i;
-            %disp(append('NATURAL TRANSITION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
-            %disp(append('theta: ',string(theta(i)), ' ue: ' ,string(ue(i))))
         end
         
         % Detection of laminar seperation
@@ -85,7 +83,6 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
             laminar = false;
             ils = i;
             He(i) = 1.5109;
-            %disp(append('LAMINAR SEPERATION  -->  x: ',string(x(i)), ' Re_theta: ' ,string(Re_theta/1000)))
         end
        
         i = i +1;
