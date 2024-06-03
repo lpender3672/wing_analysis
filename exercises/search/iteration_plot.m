@@ -1,3 +1,4 @@
+
 clear
 close all 
 %{
@@ -8,23 +9,15 @@ datafiles = ["0018_det_0.mat",...
             ];
 %}
 
-datafiles = ["0012_det_9.mat"];
+datafiles = ["hello_world.mat"];
 %datafiles = ["v2stall_det_5.3.mat"];
 
 
-angle_file = char(datafiles(1));
-end_pos = find(angle_file == '_', 1, 'last');
-airfoil_file = [angle_file(1:end_pos-1) '.mat'];
-
-disp(airfoil_file)
-airfoil_struct = open(airfoil_file);
-xs = airfoil_struct.xs;
-ys = airfoil_struct.ys;
 
 % set to true to see boundary layer transitions
 % (not recommended for multiple plots)
 
-plot_transitions =true;
+plot_transitions = true;
 
 su_array = {};
 cpu_array = {};
@@ -40,22 +33,27 @@ ilnt_array = {};
 ills_array = {};
 ilts_array = {};
 
+alpha = 7;
+
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));
-    
-    su_array{end+1} = data_struct.su;
-    cpu_array{end+1} = data_struct.cpu;
-    thetau_array{end+1} = data_struct.thetau;
-    iunt_array{end+1} = data_struct.iunt;
-    iuls_array{end+1} = data_struct.iuls;
-    iuts_array{end+1} = data_struct.iuts;
 
-    sl_array{end+1} = data_struct.sl;
-    cpl_array{end+1} = data_struct.cpl;
-    thetal_array{end+1} = data_struct.thetal;
-    ilnt_array{end+1} = data_struct.ilnt;
-    ills_array{end+1} = data_struct.ills;
-    ilts_array{end+1} = data_struct.ilts;
+    idxs = find(abs(data_struct.alpha - alpha) < eps(alpha));
+    idx = idxs(1);
+    
+    su_array{end+1} = data_struct.su_s{idx};
+    cpu_array{end+1} = data_struct.cpu_s{idx};
+    thetau_array{end+1} = data_struct.thetau_s{idx};
+    iunt_array{end+1} = data_struct.iunt_s(idx);
+    iuls_array{end+1} = data_struct.iuls_s(idx);
+    iuts_array{end+1} = data_struct.iuts_s(idx);
+
+    sl_array{end+1} = data_struct.sl_s{idx};
+    cpl_array{end+1} = data_struct.cpl_s{idx};
+    thetal_array{end+1} = data_struct.thetal_s{idx};
+    ilnt_array{end+1} = data_struct.ilnt_s(idx);
+    ills_array{end+1} = data_struct.ills_s(idx);
+    ilts_array{end+1} = data_struct.ilts_s(idx);
 end
 
 
@@ -92,6 +90,7 @@ for i=1:length(datafiles)
     if plot_transitions 
         if iunt_array{i} ~= 0
             xline(su_array{i}(iunt_array{i}),'-',{'Natural Transition'})
+            %scatter(su_array{i}(iunt_array{i}),thetau_array{i}(iunt_array{i}),'x')
         end
         if iuls_array{i} ~= 0
             xline(su_array{i}(iuls_array{i}),'-',{'Laminar Seperation'})
@@ -141,7 +140,7 @@ for i=1:length(datafiles)
     plot(sl_array{i},thetal_array{i})
     if plot_transitions 
         if ilnt_array{i} ~= 0
-            xline(sl_array{i}(ilnt_array{i}),'-',{'Natural Transition'})
+            %xline(sl_array{i}(ilnt_array{i}),'-',{'Natural Transition'})
         end
         if ills_array{i} ~= 0
             xline(sl_array{i}(ills_array{i}),'-',{'Laminar Seperation'})
@@ -160,8 +159,10 @@ title('$\theta$ Lower Surface','Interpreter','latex')
 figure(3)
 hold on
 for i=1:length(datafiles)
-    plot(xs,ys)
+    data_struct = load(datafiles(i));
+    plot(data_struct.xs,data_struct.ys)
 end
+legend(datafiles)
 hold off
 xlabel('x/c')
 ylabel('y/c')
