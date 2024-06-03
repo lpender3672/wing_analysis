@@ -8,7 +8,9 @@ datafiles = ["0018_det_0.mat",...
             ];
 %}
 
-datafiles = ["e2inv_det_3.4.mat"];
+datafiles = ["g1stall_det_5.3.mat",...
+    "g7stall_det_5.3"];
+%datafiles = ["v2stall_det_5.3.mat"];
 
 
 angle_file = char(datafiles(1));
@@ -23,7 +25,7 @@ ys = airfoil_struct.ys;
 % set to true to see boundary layer transitions
 % (not recommended for multiple plots)
 
-plot_transitions =false;
+plot_transitions =true;
 
 su_array = {};
 cpu_array = {};

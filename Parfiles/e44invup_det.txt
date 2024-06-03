@@ -1,0 +1,4 @@
+Section identifier              : e44
+Number of panels                : 800
+Reynolds number                 : 20e6
+Range of incidences (degrees)   : 0.7:0.1:1.0

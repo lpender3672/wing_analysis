@@ -1,8 +1,8 @@
 clear
 close all 
 
-datafile = "Data\e3_det_4.mat";
-datafile_ov = "Data\e3_det.mat";
+datafile = "Data\9305_det_4.mat";
+datafile_ov = "Data\9305_swp.mat";
 
 alpha = 8; 
 
