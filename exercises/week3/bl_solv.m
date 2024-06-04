@@ -75,11 +75,9 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         % Detection of natrual transition
         if log(Re_theta) >= 18.4*He(i) - 21.74
             laminar = false;
-            int = i;
-        end
-        
+            int = i;        
         % Detection of laminar seperation
-        if m > 0.09
+        elseif m > 0.09
             laminar = false;
             ils = i;
             He(i) = 1.5109;
@@ -112,7 +110,7 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
         H = (11*He(i) + 15)/(48*He(i) - 59);
         delstar(i) = H*theta(i);
         % Detection of turbulent reattachment
-        if He(i) > 1.58 && itr == 0
+        if He(i) > 1.58 && itr == 0 && ils ~= 0
             itr = i;
         end
     
