@@ -9,7 +9,11 @@ datafiles = ["0018_det_0.mat",...
             ];
 %}
 
-datafiles = ["hello_world.mat"];
+datafiles = ["Data/search_v1.mat",...
+             "Data/search_v2.mat",...
+             "Data/search_v3.mat",...
+             "Data/search_v6.mat",...
+             ];
 %datafiles = ["v2stall_det_5.3.mat"];
 
 
@@ -40,6 +44,8 @@ for i=1:length(datafiles)
 
     idxs = find(abs(data_struct.alpha - alpha) < eps(alpha));
     idx = idxs(1);
+    
+    disp(['Design ' datafiles(i) ' has Cl ' num2str(data_struct.Cl_s(idx)) ' and Cd of ' num2str(data_struct.Cd_s(idx))])
     
     su_array{end+1} = data_struct.su_s{idx};
     cpu_array{end+1} = data_struct.cpu_s{idx};

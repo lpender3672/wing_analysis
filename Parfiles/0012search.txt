@@ -1,0 +1,4 @@
+Section identifier              : 0012search_v6
+Number of panels                : 800
+Reynolds number                 : 20e6
+Range of incidences (degrees)   : 2:0.1:12
