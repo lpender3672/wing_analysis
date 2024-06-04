@@ -10,9 +10,11 @@ datafiles = ["0018_det_0.mat",...
 %}
 
 datafiles = ["Data/search_v1.mat",...
-             "Data/search_v2.mat",...
-             "Data/search_v3.mat",...
-             "Data/search_v6.mat",...
+             "Data/search_v14.mat",...
+             "Data/search_v15.mat",...
+             "Data/search_v16.mat",...
+             "Data/search_v17.mat",...
+             "Data/naca9305.mat"
              ];
 %datafiles = ["v2stall_det_5.3.mat"];
 
@@ -39,8 +41,7 @@ ills_array = {};
 ilts_array = {};
 iltr_array = {};
 
-
-alpha = 7;
+alpha = 5;
 
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));
@@ -88,7 +89,7 @@ for i=1:length(datafiles)
         
         if iunt_array{i} ~= 0
             %xline(su_array{i}(iunt_array{i}),'-',{'Natural Transition'})
-            scat = scatter(su_array{i}(iunt_array{i}), cpu_array{i}(iunt_array{i}), 30, 0, 'd', 'filled')
+            scat = scatter(su_array{i}(iunt_array{i}), cpu_array{i}(iunt_array{i}), 30, 0, 'd', 'filled');
             if ~iunt_added
                 legend_array{end+1} = scat;
                 label_array{end+1} = 'Natural Transition';
@@ -97,7 +98,7 @@ for i=1:length(datafiles)
         end
         if iuls_array{i} ~= 0
             %xline(su_array{i}(iuls_array{i}),'-',{'Laminar Seperation'})
-            scat = scatter(su_array{i}(iuls_array{i}), cpu_array{i}(iuls_array{i}), 30, 'red', 'o')
+            scat = scatter(su_array{i}(iuls_array{i}), cpu_array{i}(iuls_array{i}), 30, 'red', 'o');
             if ~iuel_added
                 legend_array{end+1} = scat;
                 label_array{end+1} = 'Laminar Seperation';
@@ -106,7 +107,7 @@ for i=1:length(datafiles)
         end
         if iuts_array{i} ~= 0
             %xline(su_array{i}(iuts_array{i}),'-',{'Turbulent Seperation'})
-            scat = scatter(su_array{i}(iuts_array{i}), cpu_array{i}(iuts_array{i}), 30, 'red', 's', 'filled')
+            scat = scatter(su_array{i}(iuts_array{i}), cpu_array{i}(iuts_array{i}), 30, 'red', 's', 'filled');
             if ~iuts_added
                 legend_array{end+1} = scat;
                 label_array{end+1} = 'Turbulent Seperation';
@@ -115,7 +116,7 @@ for i=1:length(datafiles)
         end
         if iutr_array{i} ~= 0
             %xline(su_array{i}(iuts_array{i}),'-',{'Turbulent Reattachment'})
-            scat = scatter(su_array{i}(iutr_array{i}), cpu_array{i}(iutr_array{i}), 30, 0, 'o', 'filled')
+            scat = scatter(su_array{i}(iutr_array{i}), cpu_array{i}(iutr_array{i}), 30, 0, 'o', 'filled');
             if ~iutr_added
                 legend_array{end+1} = scat;
                 label_array{end+1} = 'Turbulent Reattachment';
@@ -181,7 +182,7 @@ for i=1:length(datafiles)
         
         if ilnt_array{i} ~= 0
             %xline(su_array{i}(iunt_array{i}),'-',{'Natural Transition'})
-            scat = scatter(sl_array{i}(ilnt_array{i}), cpl_array{i}(ilnt_array{i}), 30, 0, 'd', 'filled')
+            scat = scatter(sl_array{i}(ilnt_array{i}), cpl_array{i}(ilnt_array{i}), 30, 0, 'd', 'filled');
             if ~ilnt_added
                 legend_array{end+1} = scat;
                 label_array{end+1} = 'Natural Transition';
@@ -190,7 +191,7 @@ for i=1:length(datafiles)
         end
         if ills_array{i} ~= 0
             %xline(su_array{i}(iuls_array{i}),'-',{'Laminar Seperation'})
-            scat = scatter(sl_array{i}(ills_array{i}), cpl_array{i}(ills_array{i}), 30, 'red', 'o')
+            scat = scatter(sl_array{i}(ills_array{i}), cpl_array{i}(ills_array{i}), 30, 'red', 'o');
             if ~ilel_added
                 legend_array{end+1} = scat;
                 label_array{end+1} = 'Laminar Seperation';
@@ -199,7 +200,7 @@ for i=1:length(datafiles)
         end
         if ilts_array{i} ~= 0
             %xline(su_array{i}(iuts_array{i}),'-',{'Turbulent Seperation'})
-            scat = scatter(sl_array{i}(ilts_array{i}), cpl_array{i}(ilts_array{i}), 30, 'red', 's', 'filled')
+            scat = scatter(sl_array{i}(ilts_array{i}), cpl_array{i}(ilts_array{i}), 30, 'red', 's', 'filled');
             if ~ilts_added
                 legend_array{end+1} = scat;
                 label_array{end+1} = 'Turbulent Seperation';
@@ -208,7 +209,7 @@ for i=1:length(datafiles)
         end
         if iltr_array{i} ~= 0
             %xline(su_array{i}(iuts_array{i}),'-',{'Turbulent Reattachment'})
-            scat = scatter(sl_array{i}(iltr_array{i}), cpl_array{i}(iltr_array{i}), 30, 0, 'o', 'filled')
+            scat = scatter(sl_array{i}(iltr_array{i}), cpl_array{i}(iltr_array{i}), 30, 0, 'o', 'filled');
             if ~iltr_added
                 legend_array{end+1} = scat;
                 label_array{end+1} = 'Turbulent Reattachment';
@@ -264,5 +265,58 @@ axis image
 xlim([-0.1,1.1])
 ylim([-0.3,0.3])
   
+
+
+figure(4)
+subplot(1,2,1)
+hold on
+for i=1:length(datafiles)
+    data_struct = load(datafiles(i));
+    plot(data_struct.Cl_s,data_struct.Cd_s)
+end
+hold off
+xlabel('$c_{l}$','Interpreter','latex')
+ylabel('$c_{d}$','Interpreter','latex')
+legend(datafiles, 'Interpreter', 'none','location','northwest') 
+
+
+subplot(1,2,2)
+hold on
+for i=1:length(datafiles)
+    data_struct = load(datafiles(i));
+    plot(data_struct.alpha,data_struct.lovdswp)
+end
+hold off
+xlabel('$\alpha$','Interpreter','latex')
+ylabel('$\frac{c_{l}}{c_{d}}$','Interpreter','latex')
+legend(datafiles, 'Interpreter', 'none','location','northwest') 
+
+
+
+figure(5)
+subplot(1,2,1);
+hold on
+for i=1:length(datafiles)
+    data_struct = load(datafiles(i));
+    plot(data_struct.alpha,data_struct.Cl_s)
+end
+hold off
+xlabel('$\alpha$','Interpreter','latex')
+ylabel('$c_{l}$','Interpreter','latex')
+legend(datafiles, 'Interpreter', 'none','location','northwest') 
+
+subplot(1,2,2);
+hold on
+for i=1:length(datafiles)
+    data_struct = load(datafiles(i));
+    plot(data_struct.alpha,data_struct.Cd_s)
+end
+hold off
+xlabel('$\alpha$','Interpreter','latex')
+ylabel('$c_{d}$','Interpreter','latex')
+legend(datafiles, 'Interpreter', 'none','location','northwest') 
+
+
+
 
     

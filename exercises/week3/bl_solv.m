@@ -93,8 +93,8 @@ function [int, ils, itr, its, delstar, theta] = bl_solv(x,cp)
     while i <= n && its == 0 % Loop runs while tbl attached and not at end
         
         % ue0 has changed meaning here to be the velocity at start of panel
-        ue0 = ue(i);
-        due_dx = (ue0-ue(i-1))/(x(i) - x(i-1));
+        ue0 = ue(i-1);
+        due_dx = (ue(i)-ue0)/(x(i) - x(i-1));
         
         % Inital conditions for ode45 solution
 
