@@ -139,14 +139,14 @@ for i=1:length(datafiles)
     plot(su_array{i},thetau_array{i})
     if plot_transitions 
         if iunt_array{i} ~= 0
-            xline(su_array{i}(iunt_array{i}),'-',{'Natural Transition'})
+            %xline(su_array{i}(iunt_array{i}),'-',{'Natural Transition'})
             %scatter(su_array{i}(iunt_array{i}),thetau_array{i}(iunt_array{i}),'x')
         end
         if iuls_array{i} ~= 0
-            xline(su_array{i}(iuls_array{i}),'-',{'Laminar Seperation'})
+            %xline(su_array{i}(iuls_array{i}),'-',{'Laminar Seperation'})
         end
         if iuts_array{i} ~= 0
-            xline(su_array{i}(iuts_array{i}),'-',{'Turbulent Seperation'})
+            %xline(su_array{i}(iuts_array{i}),'-',{'Turbulent Seperation'})
         end
     end
 end
@@ -237,10 +237,10 @@ for i=1:length(datafiles)
             %xline(sl_array{i}(ilnt_array{i}),'-',{'Natural Transition'})
         end
         if ills_array{i} ~= 0
-            xline(sl_array{i}(ills_array{i}),'-',{'Laminar Seperation'})
+            %xline(sl_array{i}(ills_array{i}),'-',{'Laminar Seperation'})
         end
         if ilts_array{i} ~= 0
-            xline(sl_array{i}(ilts_array{i}),'-',{'Turbulent Seperation'})
+            %xline(sl_array{i}(ilts_array{i}),'-',{'Turbulent Seperation'})
         end
     end
 end
