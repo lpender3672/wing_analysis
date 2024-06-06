@@ -9,9 +9,10 @@ datafiles = ["0018_det_0.mat",...
             ];
 %}
 
-datafiles = ["Data/search_v1.mat",...
-             "Data/search_v22.mat"
-             ];
+datafiles = ["Data/search_m1.mat",...
+    "Data/search_m13.mat",...
+    "Data/search_m15.mat",...
+    ];
 %datafiles = ["v2stall_det_5.3.mat"];
 
 
@@ -37,7 +38,7 @@ ills_array = {};
 ilts_array = {};
 iltr_array = {};
 
-alpha = 8.5; % ALPHA OF CP PLOT 
+alpha = 5; % ALPHA OF CP PLOT 
 
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));
