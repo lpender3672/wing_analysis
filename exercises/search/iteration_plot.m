@@ -9,9 +9,10 @@ datafiles = ["0018_det_0.mat",...
             ];
 %}
 
-datafiles = ["Data/search_m1.mat",...
-    "Data/search_m13.mat",...
-    "Data/search_m15.mat",...
+datafiles = ["Data/search_v1.mat",...
+    "Data/search_v19.mat",...
+    "Data/search_v20.mat",...
+    "Data/search_v21.mat",...
     ];
 %datafiles = ["v2stall_det_5.3.mat"];
 
@@ -38,7 +39,7 @@ ills_array = {};
 ilts_array = {};
 iltr_array = {};
 
-alpha = 5; % ALPHA OF CP PLOT 
+alpha = 7; % ALPHA OF CP PLOT 
 
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));
@@ -128,7 +129,7 @@ xlabel('Upper Surface','Interpreter','latex')
 ylabel('Upper $c_{p}$','Interpreter','latex')
 
 title('$c_{p}$ Upper Surface','Interpreter','latex')
-
+grid on
 
 
 subplot(2,1,2);
@@ -155,7 +156,7 @@ legend_handles = [legend_array{:}];
 legend_labels = label_array;
 legend(legend_handles, legend_labels, 'Interpreter', 'none', 'location', 'northwest');
 title('$\theta$ Upper Surface','Interpreter','latex')
-
+grid on
 
 
 figure(2)
@@ -223,7 +224,7 @@ legend_handles = [legend_array{:}];
 legend_labels = label_array;
 legend(legend_handles, legend_labels, 'Interpreter', 'none', 'location', 'northwest');
 title('$c_{p}$ Lower Surface','Interpreter','latex')
-
+grid on
 
 
 subplot(2,1,2);
@@ -247,6 +248,7 @@ xlabel('Lower Surface','Interpreter','latex')
 ylabel('$\theta$','Interpreter','latex')
 legend(datafiles, 'Interpreter', 'none','location','northwest') 
 title('$\theta$ Lower Surface','Interpreter','latex')
+grid on
 
 figure(3)
 hold on
@@ -254,14 +256,14 @@ for i=1:length(datafiles)
     data_struct = load(datafiles(i));
     plot(data_struct.xs,data_struct.ys)
 end
-legend(datafiles)
+legend(datafiles, 'Interpreter', 'none','location','northwest')
 hold off
 xlabel('x/c')
 ylabel('y/c')
 axis image
 xlim([-0.1,1.1])
 ylim([-0.3,0.3])
-  
+grid on
 
 
 figure(4)
@@ -275,7 +277,7 @@ hold off
 xlabel('$c_{l}$','Interpreter','latex')
 ylabel('$c_{d}$','Interpreter','latex')
 legend(datafiles, 'Interpreter', 'none','location','northwest') 
-
+grid on
 
 subplot(1,2,2)
 hold on
@@ -287,7 +289,7 @@ hold off
 xlabel('$\alpha$','Interpreter','latex')
 ylabel('$\frac{c_{l}}{c_{d}}$','Interpreter','latex')
 legend(datafiles, 'Interpreter', 'none','location','northwest') 
-
+grid on
 
 
 figure(5)
@@ -301,6 +303,7 @@ hold off
 xlabel('$\alpha$','Interpreter','latex')
 ylabel('$c_{l}$','Interpreter','latex')
 legend(datafiles, 'Interpreter', 'none','location','northwest') 
+grid on
 
 subplot(1,2,2);
 hold on
@@ -312,7 +315,7 @@ hold off
 xlabel('$\alpha$','Interpreter','latex')
 ylabel('$c_{d}$','Interpreter','latex')
 legend(datafiles, 'Interpreter', 'none','location','northwest') 
-
+grid on
 
 
 
