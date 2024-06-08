@@ -222,7 +222,7 @@ xlabel('Lower Surface','Interpreter','latex')
 ylabel('Lower $c_{p}$','Interpreter','latex')
 legend_handles = [legend_array{:}];
 legend_labels = label_array;
-legend(legend_handles, legend_labels, 'Interpreter', 'none', 'location', 'northwest');
+legend(legend_handles, legend_labels, 'Interpreter', 'none', 'location', 'southeast');
 title('$c_{p}$ Lower Surface','Interpreter','latex')
 grid on
 

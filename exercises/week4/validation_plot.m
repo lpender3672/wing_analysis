@@ -58,7 +58,7 @@ hold on;
 
 % Plot your data
 
-plot(alpha,clswp,'r')
+plot(alpha,-clswp,'r', 'LineWidth',2)
 axis ij;
 
 
