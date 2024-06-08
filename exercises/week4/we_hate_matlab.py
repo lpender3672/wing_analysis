@@ -8,11 +8,11 @@ import numpy as np
 naca0012_sweep = sio.loadmat('Data/0012_swp.mat')
 
 # print the contents of the .mat file
-print(naca0012_sweep.keys())
+# print(naca0012_sweep.keys())
 
-alpha = naca0012_sweep['alpha'][0,:]
-cl = naca0012_sweep['Cl_s'][0,:]
-cd = naca0012_sweep['Cd_s'][0,:]
+alpha0012 = naca0012_sweep['alpha'][0,:]
+cl0012 = naca0012_sweep['Cl_s'][0,:]
+cd0012 = naca0012_sweep['Cd_s'][0,:]
 
 
 # import matplotlib.pyplot to plot the data
@@ -27,7 +27,7 @@ plt.figure(figsize=(6, 8))
 
 # plot the data
 
-plt.plot(alpha, cl, label='Cl', color='red')
+plt.plot(alpha0012, cl0012, label='Cl', color='red', linewidth=1)
 
 xticks = np.arange(-24, 36, 4, )
 plt.xticks(xticks)
@@ -40,7 +40,7 @@ plt.ylim(-1.8, 2.8)
 img = plt.imread('exercises/week3/NACA0012_background.png')
 plt.imshow(img, extent=[-24, 32, -1.8, 2.8], aspect='auto')
 
-plt.xlabel('Angle of Attack (degrees)')
+plt.xlabel(r'Angle of Attack $\alpha$ (degrees)')
 plt.ylabel('Coefficient')
 plt.title('NACA 0012 Airfoil Data')
 
@@ -55,7 +55,7 @@ plt.figure(figsize=(6, 8))
 
 # plot the data
 
-plt.plot(cl, cd, label='Cl', color='red')
+plt.plot(cl0012, cd0012, label='Cl', color='red', linewidth=1)
 
 xticks = np.arange(-1.6, 1.6, 0.4)
 plt.xticks(xticks)
@@ -68,8 +68,8 @@ plt.ylim(0, 0.032)
 img = plt.imread('exercises/week3/NACA0012_background2.png')
 plt.imshow(img, extent=[-1.6, 1.6, 0, 0.032], aspect='auto')
 
-plt.xlabel('Angle of Attack (degrees)')
-plt.ylabel('Coefficient')
+plt.xlabel('Lift Coefficient $C_l$')
+plt.ylabel('Drag Coefficient $C_d$')
 plt.title('NACA 0012 Airfoil Data')
 
 plt.legend()
@@ -79,4 +79,67 @@ plt.legend()
 plt.savefig('NACA0012_drag_validation.png', dpi=300, bbox_inches='tight')
 
 
-plt.show()
+naca4412_sweep = sio.loadmat('Data/4412_swp.mat')
+
+# print the contents of the .mat file
+# print(naca0012_sweep.keys())
+
+alpha4412 = naca4412_sweep['alpha'][0,:]
+cl4412 = naca4412_sweep['Cl_s'][0,:]
+cd4412 = naca4412_sweep['Cd_s'][0,:]
+
+plt.figure(figsize=(6, 8))
+
+# plot the data
+
+plt.plot(alpha4412, cl4412, label='Cl', color='red', linewidth=1)
+
+xticks = np.arange(-32, 32, 8)
+plt.xticks(xticks)
+plt.xlim(-32, 32)
+yticks = np.arange(-2, 3.6, 0.4)
+plt.yticks(yticks)
+plt.ylim(-2, 3.6)
+
+# plot image
+img = plt.imread('exercises/week3/NACA4412_background.png')
+plt.imshow(img, extent=[-32, 32, -2, 3.6], aspect='auto')
+
+plt.xlabel(r'Angle of Attack $\alpha$ (degrees)')
+plt.ylabel('Coefficient')
+plt.title('NACA 4412 Airfoil Data')
+
+plt.legend()
+
+# save the plot
+plt.savefig('NACA4412_lift_validation.png', dpi=300, bbox_inches='tight')
+
+
+plt.figure(figsize=(6, 8))
+
+# plot the data
+
+plt.plot(cl4412, cd4412, label='Cl', color='red', linewidth=1)
+
+xticks = np.arange(-1.6, 1.6, 0.4)
+plt.xticks(xticks)
+plt.xlim(-1.6, 1.6)
+yticks = np.arange(0, 0.036, 0.004)
+plt.yticks(yticks)
+plt.ylim(0, 0.036)
+
+# plot image
+img = plt.imread('exercises/week3/NACA4412_background1.png')
+plt.imshow(img, extent=[-1.6, 1.6, 0, 0.036], aspect='auto')
+
+plt.xlabel('Lift Coefficient $C_l$')
+plt.ylabel('Drag Coefficient $C_d$')
+plt.title('NACA 4412 Airfoil Data')
+
+plt.legend()
+
+# save the plot
+plt.savefig('NACA4412_drag_validation.png', dpi=300, bbox_inches='tight')
+
+
+#plt.show()
