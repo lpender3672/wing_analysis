@@ -37,5 +37,11 @@ function lhsmat = build_lhs_nonv(xs,ys)
     
     % Auxiliary equations used to populate final rows of A matrix
     lhsmat(np,1) = 1;
-    lhsmat(np+1,np+1) = 1;
+    lhsmat(np,np+1) = 1;
+    
+    lhsmat(np+1,2) = -1;
+    lhsmat(np+1,3) = 1/2;
+    lhsmat(np+1,np-1) = -1/2;
+    lhsmat(np+1, np) = 1;
+    lhsmat(np+1, np+1) = -1;
 end
