@@ -10,11 +10,13 @@ datafiles = ["0018_det_0.mat",...
 %}
 
 datafiles = [
-    "Data/search_m31.mat",...
-    "Data/search_v23"
+    "Data/search_v1",...
+    "Data/search_v2",...
+    "Data/search_v3",...
+    "Data/search_v4",...
+    "Data/search_v5",...
     ];
 %datafiles = ["v2stall_det_5.3.mat"];
-
 
 
 % set to true to see boundary layer transitions
@@ -38,7 +40,7 @@ ills_array = {};
 ilts_array = {};
 iltr_array = {};
 
-alpha = 5.7; % ALPHA OF CP PLOT 
+alpha = 5; % ALPHA OF CP PLOT 
 
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));

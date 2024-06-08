@@ -109,7 +109,17 @@ plt.xlabel(r'Angle of Attack $\alpha$ (degrees)')
 plt.ylabel('Coefficient')
 plt.title('NACA 4412 Airfoil Data')
 
-plt.legend()
+# the legend of the image graph was cropped so adding this in
+
+manual_legend = [
+    plt.Line2D([0], [0], color='red', lw=1, label=r'$Re_L = 3\times10^6$'),
+    plt.Line2D([0], [0], color='black', lw=1, label=r'$Re_L = 3\times10^6$', marker='o', markerfacecolor='none'),
+    plt.Line2D([0], [0], color='black', lw=1, label=r'$Re_L = 6\times10^6$', marker='s', markerfacecolor='none'),
+    plt.Line2D([0], [0], color='black', lw=1, label=r'$Re_L = 9\times10^6$', marker='D', markerfacecolor='none'),
+    plt.Line2D([0], [0], color='black', lw=1, label='$Re_L = 6\\times10^6$ \n with $60^o$ flap', marker='^', markerfacecolor='none'),
+]
+
+plt.legend(handles=manual_legend, loc='upper left')
 
 # save the plot
 plt.savefig('NACA4412_lift_validation.png', dpi=300, bbox_inches='tight')
@@ -136,7 +146,7 @@ plt.xlabel('Lift Coefficient $C_l$')
 plt.ylabel('Drag Coefficient $C_d$')
 plt.title('NACA 4412 Airfoil Data')
 
-plt.legend()
+plt.legend(handles=manual_legend, loc=(0.05, 0.52))
 
 # save the plot
 plt.savefig('NACA4412_drag_validation.png', dpi=300, bbox_inches='tight')

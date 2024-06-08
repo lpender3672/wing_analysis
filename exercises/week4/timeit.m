@@ -44,5 +44,6 @@ legend('Vector Methods (Re_L = 2e6)', 'Vector Methods (Re_L = 0.5e6)', ...
 xlabel('Number of Panels');
 ylabel('Execution Time (seconds)');
 title('Execution Time Comparison');
+grid on
 
 
