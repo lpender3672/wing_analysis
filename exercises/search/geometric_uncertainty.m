@@ -10,22 +10,17 @@ function u_lod = geometric_uncertainty(section, alpha)
     
     u_lod = 0;
     
-    figure(1);
-    hold on
     for i=2:(length(yk) - 1)
        
         yk_copy = yk;
         yk_copy(i) = u_ypoint * yk_copy(i);
         
-        u_dlod = abs(lod_from_xyk(xk, yk_copy, alpha) - lod_unchanged) / lod_unchanged;
-        
-        scatter(i, u_dlod)
-        
-        if u_dlod > u_lod
+        u_dlod = (lod_from_xyk(xk, yk_copy, alpha) - lod_unchanged) / lod_unchanged;
+                
+        if abs(u_dlod) > abs(u_lod)
             u_lod = u_dlod;
         end
     end
-    hold off
 end
 
 
