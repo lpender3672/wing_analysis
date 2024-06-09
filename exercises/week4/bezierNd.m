@@ -6,15 +6,15 @@ function clcd = bezierNd(y_points)
 % lower] surfaces at x = 0.5
 nyp = length(y_points);
 half_nyp = floor(nyp/2);
-x_points = linspace(0, 1, half_nyp + 2);
+x_points = [0, logspace(-1, 0, half_nyp)];
 
 global alpha Re_L np id
 
 upper_pts = [   0, x_points;
-    0, 0.2, y_points(1:half_nyp), 0];
+    0, y_points(1:half_nyp), 0];
 
 lower_pts = [   0, x_points;
-    0, -0.2, y_points(half_nyp+1:end), 0];
+    0, y_points(half_nyp+1:end), 0];
 
 pts = bezier(upper_pts, lower_pts, np, id);
 
