@@ -1,4 +1,4 @@
-function u_lod = geometric_uncertainty(section, alpha)
+function u_lod = geometric_uncertainty(section, alpha, colour)
 
     global Re_L np
 
@@ -9,6 +9,8 @@ function u_lod = geometric_uncertainty(section, alpha)
     u_ypoint = 0.001; % 0.1%
     
     u_lod = 0;
+
+    hold on
     
     for i=2:(length(yk) - 1)
        
@@ -16,11 +18,13 @@ function u_lod = geometric_uncertainty(section, alpha)
         yk_copy(i) = u_ypoint * yk_copy(i);
         
         u_dlod = (lod_from_xyk(xk, yk_copy, alpha) - lod_unchanged) / lod_unchanged;
+        scatter(i, u_dlod, 15, colour, "filled")
                 
         if abs(u_dlod) > abs(u_lod)
             u_lod = u_dlod;
         end
     end
+    hold off
 end
 
 
@@ -117,7 +121,7 @@ end
 %    lift and drag coefficients
 [Cl Cd] = forces ( circ, cp, delstarl, thetal, delstaru, thetau );
 
-lod = Cl/Cd;
+lod = Cd;
 
 end
 
