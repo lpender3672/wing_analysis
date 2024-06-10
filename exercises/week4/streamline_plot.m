@@ -1,10 +1,10 @@
 clear
 close all 
 
-datafile = "Data\9305_det_4.mat";
-datafile_ov = "Data\9305_swp.mat";
+datafile = "Data\0012_det_4.mat";
+datafile_ov = "Data\0012_swp.mat";
 
-alpha = 8; 
+alpha = 5; 
 
 data_struct = open(datafile);
 data_struct_ov = open(datafile_ov);

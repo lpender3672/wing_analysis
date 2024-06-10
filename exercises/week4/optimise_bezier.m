@@ -4,9 +4,9 @@ global alpha Re_L np id
 
 
 % define global variables to optimise at
-alpha = 0;
-Re_L = 20e6;
-np = 400;
+alpha = 5;
+Re_L = 0.5e6;
+np = 800;
 id = 'opt';
 
 % define multiple initial aerofoil conditions in a 2D matrix
@@ -20,16 +20,16 @@ initial_conditions = [
 %}
 
 % define the number of random initial conditions to generate
-num_initial_conditions = 10;
+num_initial_conditions = 1;
 
 % define the bounds for random sampling
 order = 3;
 
 lower_bound = -0.2;
-upper_bound = 0.0;
+upper_bound = 0.2;
 % generate random initial conditions within the bounds
 initial_conditions(:,order+1:2*order) = lower_bound + (upper_bound - lower_bound) * rand(num_initial_conditions, order);
-lower_bound = -0.1;
+lower_bound = 0.1;
 upper_bound = 0.4;
 initial_conditions(:,1:order) = initial_conditions(:,1:order) + (upper_bound - lower_bound) * rand(num_initial_conditions, order);
 
@@ -47,14 +47,15 @@ for i = 1:size(initial_conditions, 1)
     % Check initial points are valid
     nyp = length(initial_y_points);
     half_nyp = floor(nyp/2);
-    x_points = [0, logspace(-1, 0, half_nyp)];
+    x_points = linspace(0.1, 1, half_nyp + 1);
+
+    upper_pts = [   0, 0, x_points;
+        0, 0.1, initial_y_points(1:half_nyp), 0];
     
-    upper_pts = [   0, x_points;
-        0, initial_y_points(1:half_nyp), 0];
-    
-    lower_pts = [   0, x_points;
-        0, initial_y_points(half_nyp+1:end), 0];
-    
+    lower_pts = [   0, 0, x_points;
+        0, -0.1, initial_y_points(half_nyp+1:end), 0];
+
+        
     pts = bezier(upper_pts, lower_pts, np, id);
     if isempty(pts)
         continue;
@@ -84,13 +85,14 @@ clcd = -minusclcd
 % save best points
 nyp = length(best_y_points);
 half_nyp = floor(nyp/2);
-x_points = [0, logspace(-1, 0, half_nyp)];
+x_points = linspace(0.1, 1, half_nyp + 1);
 
-upper_pts = [   0, x_points;
-    0, best_y_points(1:half_nyp), 0];
+upper_pts = [   0, 0, x_points;
+    0, 0.1, best_y_points(1:half_nyp), 0];
 
-lower_pts = [   0, x_points;
-    0, best_y_points(half_nyp+1:end), 0];
+lower_pts = [   0, 0, x_points;
+    0, -0.1, best_y_points(half_nyp+1:end), 0];
+
 
 pts = bezier(upper_pts, lower_pts, np, id);
 

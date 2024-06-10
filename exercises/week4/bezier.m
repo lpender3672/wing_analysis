@@ -22,7 +22,6 @@ if intersects(c_up, c_lo)
 else
     out_pts = cat(2, flip(c_up, 2), c_lo(:,2:end));
 
-out_pts = cat(2, flip(c_up, 2), c_lo(:,2:end));
 fname = ['Geometry/bezier' id '.surf'];
 
 fid = fopen(fname,'w');

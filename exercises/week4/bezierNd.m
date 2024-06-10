@@ -4,17 +4,20 @@ function clcd = bezierNd(y_points)
 % 
 % y_points, a 2d vector representing bezier point y values for [upper,
 % lower] surfaces at x = 0.5
-nyp = length(y_points);
-half_nyp = floor(nyp/2);
-x_points = [0, logspace(-1, 0, half_nyp)];
 
 global alpha Re_L np id
 
-upper_pts = [   0, x_points;
-    0, y_points(1:half_nyp), 0];
 
-lower_pts = [   0, x_points;
-    0, y_points(half_nyp+1:end), 0];
+nyp = length(y_points);
+half_nyp = floor(nyp/2);
+
+x_points = linspace(0.1, 1, half_nyp + 1);
+
+upper_pts = [   0, 0, x_points;
+    0, 0.1, y_points(1:half_nyp), 0];
+
+lower_pts = [   0, 0, x_points;
+    0, -0.1, y_points(half_nyp+1:end), 0];
 
 pts = bezier(upper_pts, lower_pts, np, id);
 
@@ -39,7 +42,8 @@ yk = pts(2, :);
 % build vortex sheet variables
 A = build_lhs ( xs, ys );
 Am1 = inv(A);
-b = build_rhs ( xs, ys, alpha );
+alpha_rad = alpha * pi / 180;
+b = build_rhs ( xs, ys, alpha_rad );
 
 %    solve for surface vortex sheet strength
 gam = Am1 * b;
