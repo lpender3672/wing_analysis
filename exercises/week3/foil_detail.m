@@ -10,7 +10,7 @@ global Re_L
 
 %  Read in the parameter file
 caseref = input('Enter case reference: ','s');
-parfile = ['Parfiles/' caseref '.txt'];
+parfile = ['Parfiles/' '4412_swp' '.txt'];
 fprintf(1, '%s\n\n', ['Reading in parameter file: ' parfile])
 [section np Re_L alpha] = par_read(parfile);
 

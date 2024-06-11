@@ -8,13 +8,30 @@ datafiles = ["0018_det_0.mat",...
     "0018_det_12.mat",...
             ];
 %}
+% Get the current axes handle
+ax = gca;
+
+% Access the ColorOrder property
+colorOrder = ax.ColorOrder;
+
+% Initialize the cell array to store default colors
+defaultColors = {};
+
+% Assign each color to the cell array
+for m =1:2
+    for k = 1:size(colorOrder, 1)
+        defaultColors{end+1} = colorOrder(k, :);
+    end
+end
+
+
+
+% Display the first default color
+disp('First default color:');
+disp(defaultColors{1});
 
 datafiles = [
-    "Data/search_v1",...
-    "Data/search_v2",...
-    "Data/search_v3",...
-    "Data/search_v4",...
-    "Data/search_v5",...
+    "Data/m31_big"
     ];
 %datafiles = ["v2stall_det_5.3.mat"];
 
@@ -40,12 +57,12 @@ ills_array = {};
 ilts_array = {};
 iltr_array = {};
 
-alpha = 5; % ALPHA OF CP PLOT 
+alpha = 5.1; % ALPHA OF CP PLOT 
 
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));
-
-    idxs = find(abs(data_struct.alpha - alpha) < eps(alpha));
+   
+    idxs = find(abs(data_struct.alpha - alpha) < 0.04);
     idx = idxs(1);
     
     disp(['Design ' datafiles(i) ' has Cl ' num2str(data_struct.Cl_s(idx)) ' and Cd of ' num2str(data_struct.Cd_s(idx))])
@@ -79,8 +96,8 @@ iuts_added = false;
 iutr_added = false;
 
 for i=1:length(datafiles)
-    legend_array{end+1} = plot(su_array{i},cpu_array{i});
-    label_array{end+1} = datafiles(i);
+    plot(su_array{i},cpu_array{i},'color',defaultColors{i+1});
+    %label_array{end+1} = datafiles(i);
 end
 
 for i=1:length(datafiles)
@@ -113,7 +130,7 @@ for i=1:length(datafiles)
                 iuts_added = true;
             end
         end
-        if iutr_array{i} ~= 0
+        if iutr_array{i} ~= 0 && iuls_array{i} ~= 0
             %xline(su_array{i}(iuts_array{i}),'-',{'Turbulent Reattachment'})
             scat = scatter(su_array{i}(iutr_array{i}), cpu_array{i}(iutr_array{i}), 30, 0, 'o', 'filled');
             if ~iutr_added
@@ -127,16 +144,16 @@ end
 
 hold off
 xlabel('Upper Surface','Interpreter','latex')
-ylabel('Upper $c_{p}$','Interpreter','latex')
+ylabel('$\mathbf{c_{p}}$','Interpreter','latex')
 
-title('$c_{p}$ Upper Surface','Interpreter','latex')
+
 grid on
 
 
 subplot(2,1,2);
 hold on
 for i=1:length(datafiles)
-    plot(su_array{i},thetau_array{i})
+    plot(su_array{i},thetau_array{i},'color',defaultColors{i+1})
     if plot_transitions 
         if iunt_array{i} ~= 0
             %xline(su_array{i}(iunt_array{i}),'-',{'Natural Transition'})
@@ -152,13 +169,12 @@ for i=1:length(datafiles)
 end
 hold off
 xlabel('Upper Surface','Interpreter','latex')
-ylabel('$\theta$','Interpreter','latex')
+ylabel('$\mathbf{\theta}$','Interpreter','latex')
 legend_handles = [legend_array{:}];
 legend_labels = label_array;
-legend(legend_handles, legend_labels, 'Interpreter', 'none', 'location', 'northwest');
-title('$\theta$ Upper Surface','Interpreter','latex')
+legend(legend_handles, legend_labels, 'Interpreter', 'none', 'location', 'southeast');
 grid on
-
+%saveas(gcf,'searchm2528_cpup','epsc')
 
 figure(2)
 subplot(2,1,1);
@@ -172,7 +188,7 @@ ilts_added = false;
 iltr_added = false;
 
 for i=1:length(datafiles)
-    legend_array{end+1} = plot(sl_array{i},cpl_array{i});
+    legend_array{end+1} = plot(sl_array{i},cpl_array{i},'color',defaultColors{i+1});
     label_array{end+1} = datafiles(i);
 end
 
@@ -206,7 +222,7 @@ for i=1:length(datafiles)
                 ilts_added = true;
             end
         end
-        if iltr_array{i} ~= 0
+        if iltr_array{i} ~= 0 && ills_array{i} ~= 0
             %xline(su_array{i}(iuts_array{i}),'-',{'Turbulent Reattachment'})
             scat = scatter(sl_array{i}(iltr_array{i}), cpl_array{i}(iltr_array{i}), 30, 0, 'o', 'filled');
             if ~iltr_added
@@ -220,18 +236,16 @@ end
 
 hold off
 xlabel('Lower Surface','Interpreter','latex')
-ylabel('Lower $c_{p}$','Interpreter','latex')
+ylabel('$\mathbf{c_{p}}$','Interpreter','latex')
 legend_handles = [legend_array{:}];
 legend_labels = label_array;
-legend(legend_handles, legend_labels, 'Interpreter', 'none', 'location', 'southeast');
-title('$c_{p}$ Lower Surface','Interpreter','latex')
+legend(legend_handles, legend_labels, 'Interpreter', 'none', 'location', 'northeast');
 grid on
-
 
 subplot(2,1,2);
 hold on
 for i=1:length(datafiles)
-    plot(sl_array{i},thetal_array{i})
+    plot(sl_array{i},thetal_array{i},'color',defaultColors{i+1})
     if plot_transitions 
         if ilnt_array{i} ~= 0
             %xline(sl_array{i}(ilnt_array{i}),'-',{'Natural Transition'})
@@ -246,16 +260,16 @@ for i=1:length(datafiles)
 end
 hold off
 xlabel('Lower Surface','Interpreter','latex')
-ylabel('$\theta$','Interpreter','latex')
-legend(datafiles, 'Interpreter', 'none','location','northwest') 
-title('$\theta$ Lower Surface','Interpreter','latex')
+ylabel('$\mathbf{\theta}$','Interpreter','latex')
+%legend(datafiles, 'Interpreter', 'none','location','northwest') 
 grid on
+%saveas(gcf,'v23_big_cpl','epsc')
 
 figure(3)
 hold on
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));
-    plot(data_struct.xs,data_struct.ys)
+    plot(data_struct.xs,data_struct.ys,'color',defaultColors{i+1})
 end
 legend(datafiles, 'Interpreter', 'none','location','northwest')
 hold off
@@ -265,6 +279,7 @@ axis image
 xlim([-0.1,1.1])
 ylim([-0.3,0.3])
 grid on
+saveas(gcf,'m31_bigfoil','epsc')
 
 
 figure(4)
@@ -272,11 +287,11 @@ subplot(1,2,1)
 hold on
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));
-    plot(data_struct.Cl_s,data_struct.Cd_s)
+    plot(data_struct.Cl_s,data_struct.Cd_s,'color',defaultColors{i+1})
 end
 hold off
-xlabel('$c_{l}$','Interpreter','latex')
-ylabel('$c_{d}$','Interpreter','latex')
+xlabel('$\mathbf{c_{l}}$','Interpreter','latex')
+ylabel('$\mathbf{c_{d}}$','Interpreter','latex')
 legend(datafiles, 'Interpreter', 'none','location','northwest') 
 grid on
 
@@ -284,21 +299,21 @@ subplot(1,2,2)
 hold on
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));
-    plot(data_struct.alpha,data_struct.lovdswp)
+    plot(data_struct.alpha,data_struct.lovdswp,'color',defaultColors{i+1})
 end
 hold off
-xlabel('$\alpha$','Interpreter','latex')
-ylabel('$\frac{c_{l}}{c_{d}}$','Interpreter','latex')
-legend(datafiles, 'Interpreter', 'none','location','northwest') 
+xlabel('$\mathbf{\alpha}$','Interpreter','latex')
+ylabel('$\mathbf{\frac{c_{l}}{c_{d}}}$','Interpreter','latex')
+%legend(datafiles, 'Interpreter', 'none','location','southeast') 
 grid on
-
+saveas(gcf,'m31_bigpolar','epsc')
 
 figure(5)
 subplot(1,2,1);
 hold on
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));
-    plot(data_struct.alpha,data_struct.Cl_s)
+    plot(data_struct.alpha,data_struct.Cl_s,'color',defaultColors{i+1})
 end
 hold off
 xlabel('$\alpha$','Interpreter','latex')
@@ -310,14 +325,13 @@ subplot(1,2,2);
 hold on
 for i=1:length(datafiles)
     data_struct = load(datafiles(i));
-    plot(data_struct.alpha,data_struct.Cd_s)
+    plot(data_struct.alpha,data_struct.Cd_s,'color',defaultColors{i+1})
 end
 hold off
 xlabel('$\alpha$','Interpreter','latex')
 ylabel('$c_{d}$','Interpreter','latex')
-legend(datafiles, 'Interpreter', 'none','location','northwest') 
+%legend(datafiles, 'Interpreter', 'none','location','northwest') 
 grid on
-
-
+saveas(gcf,'m31_bigld','epsc')
 
     
